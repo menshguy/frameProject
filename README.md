@@ -18,10 +18,10 @@ https://docs.google.com/document/d/1VD0glMboO8HY1I23oZjOkPFzy_jcqtAYsdGe0Dx7LQw/
 
 ## How this App runs on start
 1. Autostart file will launch chromium on start with flags
-`sudo nano ~/.config/lxsession/LXDE-pi/autostart`
+`~/.config/lxsession/LXDE-pi/autostart`
 
 2. systemd service file will launch the python app on start
-`sudo nano /lib/systemd/system/frame.service`
+`/lib/systemd/system/frame.service`
 
 
 
