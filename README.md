@@ -28,7 +28,9 @@ https://docs.google.com/document/d/1VD0glMboO8HY1I23oZjOkPFzy_jcqtAYsdGe0Dx7LQw/
 # Quick Setup
 ## autostart file updates
 1. Create an autostart document in ~/.config/lxsession/LXDE-pi/
-`sudo nano ~/.config/lxsession/LXDE-pi/autostart`
+```
+sudo nano ~/.config/lxsession/LXDE-pi/autostart
+```
 
 2. Updates its contents like so
 ```
@@ -50,7 +52,7 @@ point-rpi
 
 ## .service file updates
 1. Create a new .service file in /lib/systemd/system/ and name it whatever you'd like (i.e. frame.service)
-`sudo nano /lib/systemd/system/frame.service`
+```sudo nano /lib/systemd/system/frame.service```
 
 2. Give it the following contents
 *Make sure that you have python3 installed in a virtual environment, and that you are running that instance of Python.
