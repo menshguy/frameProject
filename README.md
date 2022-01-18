@@ -12,7 +12,7 @@ https://docs.google.com/document/d/1VD0glMboO8HY1I23oZjOkPFzy_jcqtAYsdGe0Dx7LQw/
 
 3. Start the flask server in a Pi terminal window
 `. venv/bin/activate` or `source venv/bin/activate`
-`FLASK_ENV=development FLASK_APP=led.py flask run` # I think you can also just do `python3 led.py`
+`FLASK_ENV=development FLASK_APP=app.py flask run` # I think you can also just do `python3 app.py`
 
 4. Open browser to localhost (should be https://locahost:5001 or http://127.0.0.1:5001)
 
@@ -22,6 +22,7 @@ https://docs.google.com/document/d/1VD0glMboO8HY1I23oZjOkPFzy_jcqtAYsdGe0Dx7LQw/
 
 2. systemd service file will launch the python app on start
 `sudo nano /lib/systemd/system/frame.service`
+
 
 
 # Quick Setup
@@ -60,7 +61,7 @@ Description=Start Frame Project
 After=multi-user.target
 
 [Service]
-ExecStart=/home/pi/Documents/frame_project_sockets/venv/bin/python3 /home/pi/Documents/frame_project_sockets/led.py
+ExecStart=/home/pi/Documents/frame_project_sockets/venv/bin/python3 /home/pi/Documents/frame_project_sockets/app.py
 
 [Install]
 WantedBy=multi-user.target
@@ -70,6 +71,7 @@ WantedBy=multi-user.target
 ## Create your Application
 1. Setup your application in /home/pi/Documents/... or wherever.
 The Example sockets project is setup in `/home/pi/Documents/frame_project_sockets`
+
 
 # Debugging
 ## Frontend
