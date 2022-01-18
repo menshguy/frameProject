@@ -81,9 +81,10 @@ Select Inspect to open console
 
 ## Backend
 1. Open a terminal (you can SSH in via your computer. If there is no network you will need to connect a monitor to the pi. Right click or touch and hold to open menu, exit fullscreen, and use the raspberry pi quick menu to open a terminal
-2. Run `systemctl status <NAME_OF_SERVICE>.service` to view service logs
-3. To restart the service, run
+2. Run this to view service logs:
+`systemctl status frame.service`
+4. To restart the service, run
 ```
-sudo systemctl stop <NAME_OF_SERVICE>.service
-sudo systemctl start <NAME_OF_SERVICE>.service 
+sudo systemctl stop frame.service
+sudo systemctl start frame.service 
 ```
