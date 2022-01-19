@@ -6,13 +6,16 @@ from gpiozero import Button, LED
 import requests
 from subprocess import check_output
 
-# Flask and Sockets Setup
-print("server runs")
+# ----- Setup ----- #
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'secret!'
 socketio = SocketIO(app)
+current_client = None
+clients = []
+# ----- End Setup ----- #
 
-# Pi Board - See frame_schematic.pdf for board setup
+# ----- Pi Board ----- #
+# See frame_schematic.pdf for board setup
 button = Button(10)
 led_light = LED(18)
 pi_ip_address = '192.168.0.15' # This addres is static:  https://www.makeuseof.com/raspberry-pi-set-static-ip/ 
@@ -20,39 +23,34 @@ host = '127.0.0.1'
 port = 5001
 local_url = 'http://{}:{}/'.format(host, port)
 print("local_url: ", local_url)
+# ----- End Pi Board ----- #
 
-# Sockets
-current_client = None
-clients = []
-def send_background_update(client_id, data):
-	socketio.emit('update_svg', data, room=client_id)
+# ----- Methods ----- #
+# url = '{}/switch'.format(local_url)
+def send_update(event, client_id, data):
+	socketio.emit(event, data, room=client_id)
 def print_clients():
 	print("current client", current_client)
 	print("clients:", clients)
-
-# Button Functions
-# url = '{}/switch'.format(local_url)
 def button_pressed():
 	data = { "status" : "on", "color" : "green" }
 	# Sockets:
 	led_light.on()
-	send_background_update(current_client, data)
+	send_update('update_svg', current_client, data)
 	## Ajax:
 	# requests.get(url, params=data)
 def button_unpressed():
 	data = { "status": "off", "color" : "red" }
 	# Sockets:
 	led_light.off()
-	send_background_update(current_client, data)
+	send_update('update_svg', current_client, data)
 	## Ajax:
 	# requests.get(url, params=data)
-
-# Append functions to RPi Pins
-button.when_pressed = button_pressed
+button.when_pressed = button_pressed #appends methods to RPi pins
 button.when_released = button_unpressed
+# ----- End Methods ----- #
 
-
-# ----- SOCKET EVENTS -----#
+# ----- Socket listeners -----#
 @socketio.on('connect')
 def test_connect():
         emit('connected', {'data': 'Connected to Socket.io'})
@@ -77,10 +75,10 @@ def toggle_light(status):
                 led_light.off()
         else:
                 print("failed toogle_light")
-# ----- END SOCKET EVENTS -----#
+# ----- End Socket listeners -----#
 
 
-# ----- API ROUTES ----- #
+# ----- API Routes ----- #
 @app.route('/')
 def index():
 	return render_template('index.html')
@@ -115,8 +113,9 @@ def index():
 # 	else:
 # 		return jsonify({"message": "invalid status", "status": status})
 
-# ----- END API ROUTES ----- #
+# ----- End Api Routes ----- #
 
-# ----- RUN APP ----- #
+# ----- Run App ----- #
 if __name__ == '__main__':
 	socketio.run(app, host=host, port=port)
+# ----- End Run App ----- #
