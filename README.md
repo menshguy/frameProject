@@ -39,11 +39,11 @@ sudo nano ~/.config/lxsession/LXDE-pi/autostart
 point-rpi
 
 # Production Mode: This will start chromium in Kiosk Mode. This will make it 
-# challening to escape fullscreen mode, but all errors and dialogues will be hidden.
+# challenging to escape fullscreen mode, but all errors and dialogues will be hidden.
 #@chromium-browser --start-fullscreen --kiosk --noerrdialogs --disable-session-crashed-bubble --disable-infobars http://127.0.0.1:5001/
 
-# Development mode: This will start chromium with the kiosk flag. This will let you
-# more easily escape fullscreen, but at the cost of displaying the "restore diaglogue"
+# Development mode: This will start chromium without the kiosk flag. This will let you
+# more easily escape fullscreen mode, but chromium will display errors and the "restore session" diaglogue
 @chromium-browser --start-fullscreen --noerrdialogs --disable-session-crashed-bubble --disable-infobars http://127.0.0.1:5001/
 
 @unclutter -idle 2
