@@ -1,7 +1,8 @@
 # Frame Project
 
-## SETUP and NOTES
+## Detailed Setup and RPi Notes
 https://docs.google.com/document/d/1VD0glMboO8HY1I23oZjOkPFzy_jcqtAYsdGe0Dx7LQw/edit#
+
 
 ## DEVELOPMENT
 1. You can SSH into your Pi via a terminal, VSCode or VNC Viewer
@@ -25,8 +26,8 @@ https://docs.google.com/document/d/1VD0glMboO8HY1I23oZjOkPFzy_jcqtAYsdGe0Dx7LQw/
 
 
 
-# Quick Setup
-## autostart file updates
+## Quick Setup
+### autostart file updates
 1. Create an autostart document in ~/.config/lxsession/LXDE-pi/
 ```
 sudo nano ~/.config/lxsession/LXDE-pi/autostart
@@ -50,7 +51,7 @@ point-rpi
 
 ```
 
-## .service file updates
+### .service file updates
 1. Create a new .service file in /lib/systemd/system/ and name it whatever you'd like (i.e. frame.service)
 ```sudo nano /lib/systemd/system/frame.service```
 
@@ -70,18 +71,18 @@ WantedBy=multi-user.target
 
 ```
 
-## Create your Application
+### Create your Application
 1. Setup your application in /home/pi/Documents/... or wherever.
 The Example sockets project is setup in `/home/pi/Documents/frame_project_sockets`
 
 
-# Debugging
-## Frontend
+## Debugging
+### Frontend
 Touch and hold on screen to open menu. 
 Select Exit Fullscreen
 Select Inspect to open console
 
-## Backend
+### Backend
 1. Open a terminal (you can SSH in via your computer. If there is no network you will need to connect a monitor to the pi. Right click or touch and hold to open menu, exit fullscreen, and use the raspberry pi quick menu to open a terminal
 2. Run this to view service logs:
 `systemctl status frame.service`
