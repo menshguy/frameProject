@@ -1,9 +1,10 @@
 # Frame Project
 
-## SETUP and NOTES
+## Detailed Setup and RPi Notes
 https://docs.google.com/document/d/1VD0glMboO8HY1I23oZjOkPFzy_jcqtAYsdGe0Dx7LQw/edit#
 
-## DEVELOPMENT
+
+## Development
 1. You can SSH into your Pi via a terminal, VSCode or VNC Viewer
 `ssh pi@192.168.0.15` and enter password
 
@@ -25,8 +26,8 @@ https://docs.google.com/document/d/1VD0glMboO8HY1I23oZjOkPFzy_jcqtAYsdGe0Dx7LQw/
 
 
 
-# Quick Setup
-## autostart file updates
+## Quick Setup
+### autostart file updates
 1. Create an autostart document in ~/.config/lxsession/LXDE-pi/
 ```
 sudo nano ~/.config/lxsession/LXDE-pi/autostart
@@ -39,18 +40,18 @@ sudo nano ~/.config/lxsession/LXDE-pi/autostart
 point-rpi
 
 # Production Mode: This will start chromium in Kiosk Mode. This will make it 
-# challening to escape fullscreen mode, but all errors and dialogues will be hidden.
+# challenging to escape fullscreen mode, but all errors and dialogues will be hidden.
 #@chromium-browser --start-fullscreen --kiosk --noerrdialogs --disable-session-crashed-bubble --disable-infobars http://127.0.0.1:5001/
 
-# Development mode: This will start chromium with the kiosk flag. This will let you
-# more easily escape fullscreen, but at the cost of displaying the "restore diaglogue"
+# Development mode: This will start chromium without the kiosk flag. This will let you
+# more easily escape fullscreen mode, but chromium will display errors and the "restore session" diaglogue
 @chromium-browser --start-fullscreen --noerrdialogs --disable-session-crashed-bubble --disable-infobars http://127.0.0.1:5001/
 
 @unclutter -idle 2
 
 ```
 
-## .service file updates
+### .service file updates
 1. Create a new .service file in /lib/systemd/system/ and name it whatever you'd like (i.e. frame.service)
 ```sudo nano /lib/systemd/system/frame.service```
 
@@ -70,18 +71,18 @@ WantedBy=multi-user.target
 
 ```
 
-## Create your Application
+### Create your Application
 1. Setup your application in /home/pi/Documents/... or wherever.
 The Example sockets project is setup in `/home/pi/Documents/frame_project_sockets`
 
 
-# Debugging
-## Frontend
+## Debugging
+### Frontend
 Touch and hold on screen to open menu. 
 Select Exit Fullscreen
 Select Inspect to open console
 
-## Backend
+### Backend
 1. Open a terminal (you can SSH in via your computer. If there is no network you will need to connect a monitor to the pi. Right click or touch and hold to open menu, exit fullscreen, and use the raspberry pi quick menu to open a terminal
 2. Run this to view service logs:
 `systemctl status frame.service`
