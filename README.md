@@ -4,7 +4,7 @@
 https://docs.google.com/document/d/1VD0glMboO8HY1I23oZjOkPFzy_jcqtAYsdGe0Dx7LQw/edit#
 
 
-## DEVELOPMENT
+## Development
 1. You can SSH into your Pi via a terminal, VSCode or VNC Viewer
 `ssh pi@192.168.0.15` and enter password
 
