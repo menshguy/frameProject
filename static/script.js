@@ -15,10 +15,14 @@ $(document).ready(function(){
         if (data.status === 'on') {
             $("#SwitchIndicator").css("background-color", data.color);
             $("#SVG_Example").css("fill", data.color);
+	    $("#on_layer").css("visibility", "visible");
+	    $("#off_layer").css("visibility", "hidden");
         }
         else if (data.status === 'off') {
             $("#SwitchIndicator").css("background-color", data.color);
             $("#SVG_Example").css("fill", data.color);
+	    $("#off_layer").css("visibility", "visible");
+	    $("#on_layer").css("visibility", "hidden");
         }
     });
 
