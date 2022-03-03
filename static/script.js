@@ -1,95 +1,232 @@
 console.log("script.js runs");
 
+/** Config variables */
+let image_folder = 'static/images'
+let currentAlbum = 0;
+let num_preloaded_images = 4;
+
+let albums = [
+    {
+        length: 49,
+        images: [],
+        splide: null
+    }, // album lengths
+    {
+        length: 35,
+        images: [],
+        splide: null
+    },
+    {
+        length: 27,
+        images: [],
+        splide: null
+    },
+    {
+        length: 23,
+        images: [],
+        splide: null
+    },
+    {
+        length: 11,
+        images: [],
+        splide: null
+    },
+    {
+        length: 10,
+        images: [],
+        splide: null
+    },
+    {
+        length: 27,
+        images: [],
+        splide: null
+    },
+    {
+        length: 3,
+        images: [],
+        splide: null
+    },
+    {
+        length: 8,
+        images: [],
+        splide: null
+    },
+    {
+        length: 6,
+        images: [],
+        splide: null
+    },
+    {
+        length: 5,
+        images: [],
+        splide: null
+    },
+    {
+        length: 4,
+        images: [],
+        splide: null
+    },
+    {
+        length: 6,
+        images: [],
+        splide: null
+    },
+    {
+        length: 10,
+        images: [],
+        splide: null
+    },
+];
+
+
+/** Splidejs Configuration: https://splidejs.com/guides/apis/ */
+const splideConfig = {
+    type    : 'loop',
+    height  : '800px',
+    width   : '1000px',
+    // pagination: false,
+    arrows  : false,
+    lazyLoad: 'next',
+    autoplay: true,
+    interval: 5000, // autoplay interval
+    perPage : 1,
+    cover   : true
+};
+
+/** Intialize first splide */
+let splide0 = new Splide( '.splide0', splideConfig );
+albums[0].splide = splide0
+splide0.on( 'mounted', onMount(splide0) );
+splide0.on( 'moved', onMoved(splide0) );
+splide0.mount();
+
+
+
+function getNextSlideIndex(splide) {
+    let next = albums[currentAlbum].splide.Components.Controller.getNext();
+    if ( next < 0 ) next = 0; // if splide returns -1, return to first slide
+    return next;
+}
+
+function onMount (splide) {
+    return () => {
+        console.log("onMount")
+        let img_counter = 0;
+        
+        // Dynamically load the first set of images based on the num_preloaded_images value
+        while (img_counter < num_preloaded_images) {
+            let src = `${image_folder}/${currentAlbum}/${img_counter}.png`;
+            albums[currentAlbum].images.push(src);
+            let elem = `<li class="splide__slide"> <img src="${src}" /> </li>`;
+            splide.add(elem);
+            img_counter++;
+        }
+    }
+} 
+
+function onMoved (splide) { 
+    return () => {
+        console.log("onMoved")
+        let index = splide.Components.Controller.getIndex();
+        let index_of_next = index + (num_preloaded_images - 1);
+        let current_album_length = albums[currentAlbum].length
+        let current_album_images = albums[currentAlbum].images;
+
+        // If the next image to load has not already been loaded, and we are within the length of the album, 
+        // load the next image
+        if ( !current_album_images[index_of_next] &&
+            index_of_next <= current_album_length )
+        {
+            current_album_images.push(`${image_folder}/${currentAlbum}/${index_of_next}.png`)
+            let src = current_album_images[index_of_next];
+            let elem = `<li class="splide__slide"> <img src="${src}" /> </li>`;
+            splide.add(elem);
+        }
+    }
+};
+
+
+
+/** Jquery / Socket events */
 $(document).ready(function(){
+
+    // Append extra splides
+    albums.forEach((album, i) => {
+        if ( i > 0 ) { // avoid duplicating the first splide
+            $( "#parent" ).append(`
+                <div id="slider${i}" class="splide${ i }">
+                    <div class="splide__track">
+                        <ul class="splide__list">
+                            <li class="splide__slide"></li>
+                        </ul>
+                    </div>
+                </div>
+            ` );
+        }
+
+    })
+
     // SocketIO connection to the server
     var socket = io();
     
-    // SocketIO Conection event
+    // SocketIO Conection event∏
     socket.on('connected', function(data) {
         console.log("connected event response:", data)
     });
 
-    // Recieves event from server, updates color of indicator and SVG
-    socket.on('update_svg', function(data) {
-        console.log("update_svg response:", data)
-        if (data.status === 'on') {
-            $("#SwitchIndicator").css("background-color", data.color);
-            $("#SVG_Example").css("fill", data.color);
-	    $("#on_layer").css("visibility", "visible");
-	    $("#off_layer").css("visibility", "hidden");
-        }
-        else if (data.status === 'off') {
-            $("#SwitchIndicator").css("background-color", data.color);
-            $("#SVG_Example").css("fill", data.color);
-	    $("#off_layer").css("visibility", "visible");
-	    $("#on_layer").css("visibility", "hidden");
-        }
-    });
-
-    /** 
-     * Buttons
-     */
-    $('#turnOnBtn').on('click', function(e){
-       	
-        // Sockets
-        socket.emit("toggle_light", 'on')
-        
-        // Ajax
-        // $.ajax({
-        //     url: '/led?status=on',
-        //     method: 'GET',
-        //     success: function(result) {
-        //         console.log(result);
-        //     }
-        // });
-
-        e.preventDefault();
+    // Recieves event from server, updates slide
+    // https://splidejs.com/components/controller/
+    socket.on('next_image', function(data) {
+        console.log("next_image")
+        let next = getNextSlideIndex(albums[currentAlbum].splide);
+        albums[currentAlbum].splide.go(next);
     });
     
-    $('#turnOffBtn').on('click', function(e){
-        
-        // Sockets
-        socket.emit("toggle_light", 'off')
-        
-        // Ajax
-        // $.ajax({
-        //     url: '/led?status=off',
-        //     method: 'GET',
-        //     success: function(result) {
-        //         console.log("turnOffBtn")
-        //         console.log(result);
-        //     }
-        // });
+    socket.on('next_album', function(data) {
+        console.log("next_album")
+        let previousAlbum = currentAlbum;
+        if (currentAlbum < (albums.length - 1)) currentAlbum = currentAlbum + 1
+        else currentAlbum = 0;
 
-        e.preventDefault();
-    });
-    
-    $('#btnToggle').on('click', function(e){
-        let status;
-        if($(this).text() == 'Turn On LED') {
-            $(this).text('Turn Off LED')
-            $(this).removeClass().addClass('btn btn-block btn-light');
-            status = 'on';
-        } else {
-            $(this).text('Turn On LED');
-            $(this).removeClass().addClass('btn btn-block btn-dark');
-            status = 'off';
+        if (!albums[currentAlbum].splide)
+        {
+            let newSplide = new Splide( `.splide${currentAlbum}`, splideConfig );
+            albums[currentAlbum].splide = newSplide;
+            albums[currentAlbum].splide.on( 'mounted', onMount(newSplide) );
+            albums[currentAlbum].splide.on( 'moved', onMoved(newSplide) );
+            albums[currentAlbum].splide.mount()
+        }
+        else 
+        {
+            albums[currentAlbum].splide.mount()
+            $(`.splide${currentAlbum}`).show()
         }
 
-        //Sockets
-        socket.emit("toggle_light", status)
-        
-        // Ajax
-        // $.ajax({
-        //     url: '/led?status=' + status,
-        //     method: 'GET',
-        //     success: function(result) {
-        //         console.log(result);
-        //  }
-        // });
-
-        e.preventDefault();
+        // destroy splide
+        albums[previousAlbum].splide.destroy();
+        $(`.splide${previousAlbum}`).hide()
     });
 
 });
 
+/**Helpful RPi SCRIPTS 
+ * Copy Files Scrips
+    sudo cp /media/pi/Install\ macOS\ Catalina/1_Dates/* /home/pi/Documents/frame_project_sockets/static/images/1
+    sudo cp /media/pi/Install\ macOS\ Catalina/2_Baby\ Jordan/* /home/pi/Documents/frame_project_sockets/static/images/2
+    sudo cp /media/pi/Install\ macOS\ Catalina/3_Christmas-21/* /home/pi/Documents/frame_project_sockets/static/images/3
+    sudo cp /media/pi/Install\ macOS\ Catalina/4_Hannukah-21/* /home/pi/Documents/frame_project_sockets/static/images/4
+    sudo cp /media/pi/Install\ macOS\ Catalina/5_Hikes\ NY/* /home/pi/Documents/frame_project_sockets/static/images/5
+    sudo cp /media/pi/Install\ macOS\ Catalina/6_Home\ Cooking/* /home/pi/Documents/frame_project_sockets/static/images/6
+    sudo cp /media/pi/Install\ macOS\ Catalina/7_Home\ Owners/* /home/pi/Documents/frame_project_sockets/static/images/7
+    sudo cp /media/pi/Install\ macOS\ Catalina/8_Day\ Trips/* /home/pi/Documents/frame_project_sockets/static/images/8
+    sudo cp /media/pi/Install\ macOS\ Catalina/9_Road\ Trip/* /home/pi/Documents/frame_project_sockets/static/images/9
+    sudo cp /media/pi/Install\ macOS\ Catalina/10_SF/* /home/pi/Documents/frame_project_sockets/static/images/10
+    sudo cp /media/pi/Install\ macOS\ Catalina/11_Skiing/* /home/pi/Documents/frame_project_sockets/static/images/11
+ 
+ * To Rotatoe Images in a directory, cd into the directory and run:
+    for p in *.png ; do   sudo convert "$p" -rotate 90 "$p"; done
+
+ * To Open a image from cmd line (when permission denied):
+    sudo gpicview <IMAGE>.png
+    sudo gpicview .png
+*/
