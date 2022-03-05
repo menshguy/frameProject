@@ -1,0 +1,46 @@
+.parent{
+    height: 800px;
+    width: 1000px;
+    position: absolute;
+    bottom: 20px;
+    right: 20px;
+}
+
+.subway_platform {
+    position: absolute;
+    top: -400px;
+    transform:  rotate(90deg);
+    overflow: hidden;
+    z-index: 10;
+}
+
+#subway_platform_container {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+}
+
+p#subway_platform_text {
+    position: absolute;
+    bottom: 400px;
+    right: 20px;
+    z-index: 100;
+    font-size: 60px;
+    background-color: black;
+    color: white;
+    font-family: Helvetica, sans-serif;
+    padding: 5px 20px 5px;
+    transform: rotate(90deg)
+}
+
+.plyr_container {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    overflow: hidden;
+    z-index: 100000;
+}
+
+body {
+    overflow: hidden;
+}

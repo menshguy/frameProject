@@ -38,7 +38,7 @@ def button_pressed():
 	was_held = False
 def button_unpressed():
 	data = {}
-	send_update('next_image', current_client, data)
+	# send_update('next_image', current_client, data)
 	global was_held
 	if not was_held:
 		send_update('next_image', current_client, data)

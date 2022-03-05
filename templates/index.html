@@ -10,11 +10,18 @@
         <script src="static/socket.io.min.js"></script>
         <script src="static/jquery.min.js"></script>
         <script src="static/splide.min.js"></script>
+        <script src="static/plyr.js"></script>
+        <style>
+            /* This will hide the plyr controls that we dont want/need */
+            .plyr__controls, .plyr__control{
+                display: none;
+            }
+        </style>
     </head>
     <body>
 
     <!-- Slideshow -->
-    <div id="parent" style="height: 800px; width: 1000px; position: absolute; bottom:20px; right:20px; ">
+    <div id="parent" class="parent">
     <div class="splide0" id="slider0">
         <div class="splide__track">
             <ul class="splide__list">
@@ -23,10 +30,20 @@
     </div>
     </div>
 
+    <!-- Subway Platform-->
+    <div id="subway_platform_container">
+        <p id="subway_platform_text">hi</p>
+        <img class="subway_platform" src="static/platform_test.png" />
+    </div>
+
 	<!-- Subway Doors -->
     <!-- <video style="position: absolute;" width="100%" muted loop autoplay>
         <source  src="static/train_test.mp4" type="video/mp4">
     </video> -->
+    <video class="plyr_container" id="player" playsinline muted data-poster="/">
+        <source src="static/subway_doors_close-vp9-chrome.webm" type="video/webm">
+        <p>Your browser doesn't support HTML5 video.</p>
+    </video>
     
     <!-- Script -->
     <script src="static/script.js"></script>

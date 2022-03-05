@@ -3,81 +3,95 @@ console.log("script.js runs");
 /** Config variables */
 let image_folder = 'static/images'
 let currentAlbum = 0;
-let num_preloaded_images = 4;
+let num_preloaded_images = 4; // This is the number of images that will get loaded into the browser ahead of the current one
 
+// @TODO: Load Albums dynamically so she can add images via a USB
 let albums = [
     {
         length: 49,
         images: [],
-        splide: null
-    }, // album lengths
+        splide: null,
+        name: "125th St / Mis·cel·la·ne·ous"
+    },
     {
         length: 35,
         images: [],
-        splide: null
+        splide: null,
+        name: "96th St & Date Nights"
     },
     {
         length: 27,
         images: [],
-        splide: null
+        splide: null,
+        name: "86th & Hiking in NY"
     },
     {
         length: 23,
         images: [],
-        splide: null
+        splide: null,
+        name: "72nd & Van Life"
     },
     {
         length: 11,
         images: [],
-        splide: null
+        splide: null,
+        name: "Lexington & Ski Bums"
     },
     {
         length: 10,
         images: [],
-        splide: null
+        splide: null,
+        name: "57th & San Fransisco Softies"
     },
     {
         length: 27,
         images: [],
-        splide: null
+        splide: null,
+        name: "42nd St & Home Cooking "
     },
     {
         length: 3,
         images: [],
-        splide: null
+        splide: null,
+        name: "Times Sq & Lords of the land"
     },
     {
         length: 8,
         images: [],
-        splide: null
+        splide: null,
+        name: "34th St - Day Trippers"
     },
     {
         length: 6,
         images: [],
-        splide: null
+        splide: null,
+        name: "14th st & Xmas '21"
     },
     {
         length: 5,
         images: [],
-        splide: null
+        splide: null,
+        name: "East 7th & Chewish"
     },
     {
         length: 4,
         images: [],
-        splide: null
+        splide: null,
+        name: "Canal St & Baby J"
     },
     {
         length: 6,
         images: [],
-        splide: null
+        splide: null,
+        name: "Fulton St & Weddings"
     },
     {
         length: 10,
         images: [],
-        splide: null
+        splide: null,
+        name: "Wall St & Narcolepsy"
     },
 ];
-
 
 /** Splidejs Configuration: https://splidejs.com/guides/apis/ */
 const splideConfig = {
@@ -100,16 +114,15 @@ splide0.on( 'mounted', onMount(splide0) );
 splide0.on( 'moved', onMoved(splide0) );
 splide0.mount();
 
-
-
 function getNextSlideIndex(splide) {
-    let next = albums[currentAlbum].splide.Components.Controller.getNext();
+    let next = splide.Components.Controller.getNext();
     if ( next < 0 ) next = 0; // if splide returns -1, return to first slide
     return next;
 }
 
 function onMount (splide) {
     return () => {
+
         console.log("onMount")
         let img_counter = 0;
         
@@ -145,10 +158,48 @@ function onMoved (splide) {
     }
 };
 
+function playDoorsOpen (player) {
+    player.currentTime = 0;
+    player.play();
+    setTimeout(function () {
+        player.pause();
+    }, 1800);
+}
+
+function playDoorsClose (player) {
+    player.currentTime = 2;
+    player.play();
+    setTimeout(function () {
+        player.pause();
+    }, 1800);
+}
+
+function showStreetSign () {
+    $("#subway_platform_text").show();
+}
+
+function hideStreetSign () {
+    $("#subway_platform_text").hide();
+}
+
+function updateStreetSign (text) {
+    $("#subway_platform_text").text(text);
+}
 
 
 /** Jquery / Socket events */
 $(document).ready(function(){
+
+    //Instatiate Plyr - https://github.com/sampotts/plyr
+    const player = new Plyr('#player', {
+        controls: [] // no controls
+    });
+
+    //OpenDoors after a few seconds
+    playDoorsOpen(player)
+
+    //Instantiate HTML
+    updateStreetSign(albums[0].name)
 
     // Append extra splides
     albums.forEach((album, i) => {
@@ -180,14 +231,27 @@ $(document).ready(function(){
         console.log("next_image")
         let next = getNextSlideIndex(albums[currentAlbum].splide);
         albums[currentAlbum].splide.go(next);
+        hideStreetSign();
     });
     
     socket.on('next_album', function(data) {
-        console.log("next_album")
+        // Close Doors
+        const transitionAnimationPlayTime = 2000;
+        playDoorsClose(player);
+        setTimeout(function () {
+            playDoorsOpen(player);
+        }, transitionAnimationPlayTime);
+
+        // Set current and previous alumbs for splide
         let previousAlbum = currentAlbum;
         if (currentAlbum < (albums.length - 1)) currentAlbum = currentAlbum + 1
         else currentAlbum = 0;
 
+        // Update Street Sign text
+        updateStreetSign(albums[currentAlbum].name)
+        showStreetSign();
+
+        // Mounth new album splide
         if (!albums[currentAlbum].splide)
         {
             let newSplide = new Splide( `.splide${currentAlbum}`, splideConfig );
@@ -195,9 +259,11 @@ $(document).ready(function(){
             albums[currentAlbum].splide.on( 'mounted', onMount(newSplide) );
             albums[currentAlbum].splide.on( 'moved', onMoved(newSplide) );
             albums[currentAlbum].splide.mount()
+            $(`.splide${currentAlbum}`).show()
         }
         else 
         {
+            console.log("runs...")
             albums[currentAlbum].splide.mount()
             $(`.splide${currentAlbum}`).show()
         }
