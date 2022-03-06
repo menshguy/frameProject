@@ -1,9 +1,22 @@
-.parent{
+.splide_container{
     height: 800px;
     width: 1000px;
     position: absolute;
     bottom: 20px;
     right: 20px;
+}
+
+.loading_container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: black;
+    z-index: 9999;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .subway_platform {
