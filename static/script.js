@@ -112,6 +112,7 @@ let splide0 = new Splide( '.splide0', splideConfig );
 albums[0].splide = splide0
 splide0.on( 'mounted', onMount(splide0) );
 splide0.on( 'moved', onMoved(splide0) );
+splide0.on( 'destroy', onDestroy(splide0) );
 splide0.mount();
 
 function getNextSlideIndex(splide) {
@@ -122,11 +123,12 @@ function getNextSlideIndex(splide) {
 
 function onMount (splide) {
     return () => {
-
         console.log("onMount")
-        let img_counter = 0;
+
+        playDoorsOpen(player);
         
         // Dynamically load the first set of images based on the num_preloaded_images value
+        let img_counter = 0;
         while (img_counter < num_preloaded_images) {
             let src = `${image_folder}/${currentAlbum}/${img_counter}.png`;
             albums[currentAlbum].images.push(src);
@@ -135,7 +137,18 @@ function onMount (splide) {
             img_counter++;
         }
     }
-} 
+}
+
+function onDestroy (splide) {
+    return () => {
+        console.log("onDestroy", splide)
+        playDoorsClose(player);
+        // setTimeout(function () {
+        //     playDoorsOpen(player);
+        // }, 2000);
+
+    }
+}
 
 function onMoved (splide) { 
     return () => {
@@ -227,25 +240,33 @@ $(document).ready(function(){
 
     // Recieves event from server, updates slide
     // https://splidejs.com/components/controller/
-    socket.on('next_image', function(data) {
+    socket.on('next_image', nextImage);
+    
+    socket.on('next_album', nextAlbum);
+
+    function nextImage (data) {
         console.log("next_image")
         let next = getNextSlideIndex(albums[currentAlbum].splide);
         albums[currentAlbum].splide.go(next);
         hideStreetSign();
-    });
-    
-    socket.on('next_album', function(data) {
+    }
+
+    function nextAlbum (data) {
         // Close Doors
-        const transitionAnimationPlayTime = 2000;
-        playDoorsClose(player);
-        setTimeout(function () {
-            playDoorsOpen(player);
-        }, transitionAnimationPlayTime);
+        // const transitionAnimationPlayTime = 2000;
+        // playDoorsClose(player);
+        // setTimeout(function () {
+        //     playDoorsOpen(player);
+        // }, transitionAnimationPlayTime);
 
         // Set current and previous alumbs for splide
         let previousAlbum = currentAlbum;
         if (currentAlbum < (albums.length - 1)) currentAlbum = currentAlbum + 1
         else currentAlbum = 0;
+
+        // Destroy the previous splide
+        albums[previousAlbum].splide.destroy();
+        // $(`.splide${previousAlbum}`).hide()
 
         // Update Street Sign text
         updateStreetSign(albums[currentAlbum].name)
@@ -268,9 +289,17 @@ $(document).ready(function(){
             $(`.splide${currentAlbum}`).show()
         }
 
-        // destroy splide
-        albums[previousAlbum].splide.destroy();
-        $(`.splide${previousAlbum}`).hide()
+
+    }
+
+    // For Local Development - allows me to simulate the bottom events
+    $("#mock_nextImage").click(function () {
+        console.log("mock_nextImage")
+        nextImage()
+    });
+    $("#mock_nextAlbum").click(function () {
+        console.log("mock_nextAlbum")
+        nextAlbum()
     });
 
 });

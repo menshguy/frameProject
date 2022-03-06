@@ -2,9 +2,13 @@
 
 from flask import Flask, request, jsonify, render_template
 from flask_socketio import SocketIO, emit
-from gpiozero import Button, LED
+from gpiozero import Device, Button, LED
+from gpiozero.pins.mock import MockFactory
 import requests
 from subprocess import check_output
+
+# Mock the RPi pins for local development (https://gpiozero.readthedocs.io/en/stable/api_pins.html#mock-pins)
+Device.pin_factory = MockFactory()
 
 # ----- Setup ----- #
 app = Flask(__name__)
