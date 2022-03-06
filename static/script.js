@@ -3,8 +3,15 @@ let player;
 let config = {
     shesHeldButtonOnce: false,
     loading: false,
-    // transitioning: true,
+    image_folder: 'static/images',
+    currentAlbum: -1,
+    num_preloaded_images: 4, // This is the number of images that will get loaded into the browser ahead of the current one
 };
+
+let transitionAnimationConfig = {
+    outroDuraction: 2000,
+    introDuraation: 2000,
+}
 
 const splideConfig = {
     type    : 'loop',
@@ -111,11 +118,9 @@ let albums = [
 ];
 
 function initSplide () {
-    // Any init code here, like open the subway doors, etc.
-    let splide = new Splide( '.splide0', splideConfig );
-    albums[0].splide = splide
-    splide.mount();
-
+    // // Any init code here, like open the subway doors, etc.
+    loadNextAlbum();
+    
     // Append extra splides
     albums.forEach((album, i) => {
         if ( i > 0 ) { // avoid duplicating the first splide
@@ -133,12 +138,48 @@ function initSplide () {
     })
 }
 
+function onMount (splide) {
+    return () => {
+        console.log("onMount")
+        const { image_folder, currentAlbum, num_preloaded_images } = config
+        
+        // Dynamically load the first set of images based on the num_preloaded_images value
+        let img_counter = 0;
+        while ( img_counter < num_preloaded_images ) {
+            let src = `${ image_folder }/${ currentAlbum }/${ img_counter }.png`;
+            // albums[ currentAlbum ].images.push( src );
+            let elem = `<li class="splide__slide"> <img src="${ src }" /> </li>`;
+            splide.add( elem );
+            img_counter++;
+        }
+    }
+}
+
+function onMoved (splide) {
+    return () => {
+        console.log("onMoved")
+        const { image_folder, currentAlbum, num_preloaded_images } = config;
+        let index = splide.Components.Controller.getIndex();
+        let index_of_next = index + ( num_preloaded_images - 1);
+        let album_length = albums[ currentAlbum ].length
+        let current_length = splide.length;
+    
+        // If the next image to load has not already been loaded, and we are within the length of the album, 
+        // load the next image
+        if ( current_length <= album_length ) {
+            // current_length.push(`${ image_folder }/${ currentAlbum }/${index_of_next}.png`)
+            let src = `${ image_folder }/${ currentAlbum }/${index_of_next}.png`
+            let elem = `<li class="splide__slide"> <img src="${src}" /> </li>`;
+            splide.add(elem);
+        }
+    }
+}
+
 function initPlyr () {
     //Instatiate Plyr - https://github.com/sampotts/plyr
     player = new Plyr('#player', plyrConfig);
 
 }
-
 
 $(document).ready(function() {
     
@@ -162,15 +203,19 @@ $(document).ready(function() {
     $("#mock_nextAlbum").click( nextAlbum );
 
     function nextImage (data) {
-        console.log("nextimage")
+        console.log("nextImage", data)
+        let next = getNextSlideIndex(albums[config.currentAlbum].splide);
+        albums[config.currentAlbum].splide.go(next);
     }
     
     function nextAlbum (data) {
         // If we are loading and shes already tried to change albums, we block this action
         if (config.loading) {
-            console.log("blocked action nextAlbume")
+            console.log("blocked action nextAlbum")
             return;
         }
+
+        loadNextAlbum()
 
         // If shes already tried to change albums, we play both the intro and outro
         // else, we play just the intro since we are already in loading state on startup
@@ -178,7 +223,7 @@ $(document).ready(function() {
             playSplideOutro();
             setTimeout(() => {
                 playSplideIntro();
-            } , 2000);
+            } , transitionAnimationConfig.outroDuraction);
         } else {
             config.shesHeldButtonOnce = true;
             playSplideIntro();
@@ -195,7 +240,7 @@ $(document).ready(function() {
         setTimeout(function () {
             config.loading = false;
             player.pause();
-        }, 2000)
+        }, transitionAnimationConfig.introDuraation)
         playDoorsOpen();
         hideLoadingAnimation();
     }
@@ -216,7 +261,60 @@ $(document).ready(function() {
     function hideLoadingAnimation () {
         $("#loading_container").hide();
     }
-
-    function showLoadingAnimation () {}
+    
+    function showLoadingAnimation () {
+        $("#loading_container").show();
+    }
 
 })
+
+function getNextSlideIndex(splide) {
+    let next = splide.Components.Controller.getNext();
+    if ( next < 0 ) next = 0; // if splide returns -1, return to first slide
+    return next;
+}
+
+function getNextAlbumIndex() {
+    let next;
+    if (config.currentAlbum < (albums.length - 1))
+    {
+        next = config.currentAlbum + 1
+    } 
+    else
+    {
+        next = 0
+    }
+    return next;
+}
+
+function loadNextAlbum () {
+
+    let previousAlbum = config.currentAlbum;
+    config.currentAlbum = getNextAlbumIndex();
+    console.log("?", previousAlbum, config.currentAlbum)
+
+    if (albums[previousAlbum]?.splide) {
+        albums[previousAlbum].splide.destroy();
+        $(`.splide${previousAlbum}`).hide()
+    }
+
+    // Mounth new album splide
+    if (!albums[ config.currentAlbum ].splide)
+    {
+        let splide = new Splide( `.splide${ config.currentAlbum }`, splideConfig );
+        albums[config.currentAlbum].splide = splide
+
+        splide.on( 'mounted', onMount(splide) );
+        splide.on( 'moved', onMoved(splide) );
+        // // splide.on( 'destroy', onDestroy(splide) );
+        
+        splide.mount();
+        //  $(`.splide${ config.currentAlbum }`).show()
+    }
+    else 
+    {
+        albums[ config.currentAlbum ].splide.mount()
+        // $(`.splide${config.currentAlbum}`).show()
+    }
+
+}
