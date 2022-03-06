@@ -1,11 +1,18 @@
 #!/home/pi/Documents/frame_project_sockets/venv/bin/python3
 
+from http.client import MULTI_STATUS
 from flask import Flask, request, jsonify, render_template
 from flask_socketio import SocketIO, emit
 from gpiozero import Device, Button, LED
 from gpiozero.pins.mock import MockFactory
 import requests
 from subprocess import check_output
+
+# TO DEVELOP LOCALLY YOU MUST:
+# 1. COMMENT OUT THE "Device.pin_factory = MockFactory()" LINE BELOW!
+# 2. YOU MUST COMMENT OUT THE "from gpiozero.pins.mock import MockFactory" LINE ABOVE!!!
+# 3. YOU ABSOLUTELY MUST REMOVE "DEVICE" FROM THE "from gpiozero import Device, Button, LED" LINE ABOVE!!! (NOT SURE WHY)
+# 4. YOU MUST COMMENT OUT THE TEST BUTTONS IN THE INDEX.HTML
 
 # Mock the RPi pins for local development (https://gpiozero.readthedocs.io/en/stable/api_pins.html#mock-pins)
 Device.pin_factory = MockFactory()
