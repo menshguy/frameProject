@@ -91,3 +91,14 @@ Select Inspect to open console
 sudo systemctl stop frame.service
 sudo systemctl start frame.service 
 ```
+
+### Helpful Pi Scripts
+Kill Chromium/Firefox
+`pkill -o chromium`
+`pkill -o firefox`
+
+To Refresh Chromum
+`xdotool search --onlyvisible --class Chrome windowfocus key ctrl+r`
+
+To view computer processeses/pefromance
+`htop`
