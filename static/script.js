@@ -178,7 +178,6 @@ function onMoved (splide) {
 function initPlyr () {
     //Instatiate Plyr - https://github.com/sampotts/plyr
     player = new Plyr('#player', plyrConfig);
-
 }
 
 $(document).ready(function() {
@@ -191,7 +190,7 @@ $(document).ready(function() {
     var socket = io(); // SocketIO connection to the server
     
     socket.on('connected', function(data) { 
-        console.log("connected event response:", data) // SocketIO Conection event∏
+        console.log("connected to socket.io, response:", data) // SocketIO Conection event∏
     });
 
     // Next Image Event - Jquery function is for local dev.
@@ -203,7 +202,6 @@ $(document).ready(function() {
     $("#mock_nextAlbum").click( nextAlbum );
 
     function nextImage (data) {
-        console.log("nextImage", data)
         let next = getNextSlideIndex(albums[config.currentAlbum].splide);
         albums[config.currentAlbum].splide.go(next);
     }
@@ -211,7 +209,6 @@ $(document).ready(function() {
     function nextAlbum (data) {
         // If we are loading and shes already tried to change albums, we block this action
         if (config.loading) {
-            console.log("blocked action nextAlbum")
             return;
         }
 
@@ -291,7 +288,6 @@ function loadNextAlbum () {
 
     let previousAlbum = config.currentAlbum;
     config.currentAlbum = getNextAlbumIndex();
-    console.log("?", previousAlbum, config.currentAlbum)
 
     if (albums[previousAlbum]?.splide) {
         albums[previousAlbum].splide.destroy();

@@ -42,19 +42,27 @@
     </div>
 
 	<!-- Subway Doors -->
-    <!-- <video style="position: absolute;" width="100%" muted loop autoplay>
-        <source  src="static/train_test.mp4" type="video/mp4">
-    </video> -->
+    
+    <!-- Video -->
     <video class="plyr_container" id="player" playsinline muted data-poster="/">
         <source src="static/subway_doors_close-vp9-chrome.webm" type="video/webm">
         <p>Your browser doesn't support HTML5 video.</p>
     </video>
+    
+    <!-- SVG -->
+    <!-- <div class="plyr_container">
+        <img src="static/subway_doors_frame-01.svg" />
+        <img src="static/subway_doors_left-01.svg" />
+        <img src="static/subway_doors_right-01.svg" />
+    </div> -->
 
-    <!-- Comment out before pushing - only for local development -->
-    <div style="position: absolute; top: 0px; left: 0px; z-index:100000000;">
+    <!-- End Subway Doors -->
+
+    <!-- For Local Development. Comment out before pushing -->
+    <!-- <div style="position: absolute; top: 0px; left: 0px; z-index:100000000;">
         <button id="mock_nextImage"> Next Image </button>
         <button id="mock_nextAlbum"> Next Album </button>
-    </div>
+    </div> -->
     
     <!-- Script -->
     <script src="static/script.js"></script>
