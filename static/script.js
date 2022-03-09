@@ -181,6 +181,9 @@ function initPlyr () {
 }
 
 $(document).ready(function() {
+
+    // Elements
+    const loadingContainer = $("#loading_container");
     
     // Placeholder in case I want to change default state
     initSplide();
@@ -243,24 +246,62 @@ $(document).ready(function() {
     }
 
     function playDoorsOpen () {
-        player.currentTime = 0;
-        player.play();
+        const animationDuration = 1000;
+
+         // css
+         $("#doors_left").animate(
+             {
+                top: "-540px"
+            },
+            animationDuration,
+            () => { console.log("doors open") } // plays after animation
+        )
+        $("#doors_right").animate(
+            {
+                bottom: "-540px"
+            },
+            animationDuration, 
+            () => { console.log("doors open") } // plays after animation
+        )
+
+        // Plr
+        // player.currentTime = 0;
+        // player.play();
     }
     
     function playDoorsClose () {
-        player.currentTime = 2;
-        player.play();
-        // setTimeout(function () {
-        //     player.pause();
-        // }, 2000);
+        const animationDuration = 1000;
+
+        // css
+        $("#doors_left").animate(
+            {
+                top: "0px"
+            }, 
+            animationDuration, 
+            () => { console.log("doors close") }
+        )
+        $("#doors_right").animate(
+            {
+                bottom: "0px"
+            }, 
+            animationDuration, 
+            () => { console.log("doors close") }
+        )
+
+        // Plr
+        // player.currentTime = 2;
+        // player.play();
+        // // setTimeout(function () {
+        // //     player.pause();
+        // // }, 2000);
     }
 
     function hideLoadingAnimation () {
-        $("#loading_container").hide();
+        loadingContainer.hide();
     }
     
     function showLoadingAnimation () {
-        $("#loading_container").show();
+        loadingContainer.show();
     }
 
 })
