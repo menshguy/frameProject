@@ -9,15 +9,16 @@
 from http.client import MULTI_STATUS
 from flask import Flask, request, jsonify, render_template
 from flask_socketio import SocketIO, emit
-
-# from gpiozero import Device, Button, LED # For Local Development
-# from gpiozero.pins.mock import MockFactory # For Local Development
-from gpiozero import Button, LED # For Production
-
 from subprocess import check_output
+# LOCAL DEVELOPMENT IMPORTS
+# from gpiozero import Device, Button, LED
+# from gpiozero.pins.mock import MockFactory
+# PROD IMPORTS
+from gpiozero import Button, LED
 
-# Mock RPi Pins (https://gpiozero.readthedocs.io/en/stable/api_pins.html#mock-pins)
-# Device.pin_factory = MockFactory() # For local development
+
+# LOCAL DEVELOPMENT - Mock RPi Pins (https://gpiozero.readthedocs.io/en/stable/api_pins.html#mock-pins)
+# Device.pin_factory = MockFactory()
 
 # ----- Setup ----- #
 app = Flask(__name__)
