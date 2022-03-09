@@ -71,16 +71,25 @@ p#subway_platform_text {
     height: 100%;
 }
 
+#doors_frame {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    z-index: 9999;
+}
+
 #doors_left {
     position: absolute;
     top: 0px;
     left: 0px;
+    z-index: 9998;
 }
 
 #doors_right {
     position: absolute;
     bottom: 0px;
     left: 0px;
+    z-index: 9998;
 }
 
 .svg_container img {

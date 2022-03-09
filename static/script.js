@@ -9,8 +9,8 @@ let config = {
 };
 
 let transitionAnimationConfig = {
-    outroDuraction: 2000,
-    introDuraation: 2000,
+    outroDuration: 2000,
+    introDuration: 2000,
 }
 
 const splideConfig = {
@@ -184,10 +184,12 @@ $(document).ready(function() {
 
     // Elements
     const loadingContainer = $("#loading_container");
+    const doorsLeft = $("#doors_left");
+    const doorsRight = $("#doors_right");
     
     // Placeholder in case I want to change default state
     initSplide();
-    initPlyr();
+    // initPlyr();
 
     // Scokets
     var socket = io(); // SocketIO connection to the server
@@ -223,7 +225,7 @@ $(document).ready(function() {
             playSplideOutro();
             setTimeout(() => {
                 playSplideIntro();
-            } , transitionAnimationConfig.outroDuraction);
+            } , transitionAnimationConfig.outroDuration);
         } else {
             config.shesHeldButtonOnce = true;
             playSplideIntro();
@@ -239,8 +241,8 @@ $(document).ready(function() {
     function playSplideIntro () {
         setTimeout(function () {
             config.loading = false;
-            player.pause();
-        }, transitionAnimationConfig.introDuraation)
+            // player.pause();
+        }, transitionAnimationConfig.introDuration)
         playDoorsOpen();
         hideLoadingAnimation();
     }
@@ -249,14 +251,14 @@ $(document).ready(function() {
         const animationDuration = 1000;
 
          // css
-         $("#doors_left").animate(
+         doorsLeft.animate(
              {
                 top: "-540px"
             },
             animationDuration,
             () => { console.log("doors open") } // plays after animation
         )
-        $("#doors_right").animate(
+        doorsRight.animate(
             {
                 bottom: "-540px"
             },
@@ -273,14 +275,14 @@ $(document).ready(function() {
         const animationDuration = 1000;
 
         // css
-        $("#doors_left").animate(
+        doorsLeft.animate(
             {
                 top: "0px"
             }, 
             animationDuration, 
             () => { console.log("doors close") }
         )
-        $("#doors_right").animate(
+        doorsRight.animate(
             {
                 bottom: "0px"
             }, 
