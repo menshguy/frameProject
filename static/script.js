@@ -119,7 +119,7 @@ let albums = [
 
 function initSplide () {
     // // Any init code here, like open the subway doors, etc.
-    // loadNextAlbum();
+    loadNextAlbum();
     
     // Append extra splides
     albums.forEach((album, i) => {
@@ -188,7 +188,7 @@ $(document).ready(function() {
     const doorsRight = $("#doors_right");
     
     // Placeholder in case I want to change default state
-    initSplide();
+    // initSplide();
     // initPlyr();
 
     // Scokets
