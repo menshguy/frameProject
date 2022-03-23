@@ -189,7 +189,7 @@ $(document).ready(function() {
     
     // Placeholder in case I want to change default state
     initSplide();
-    initPlyr();
+    // initPlyr();
 
     // Scokets
     var socket = io(); // SocketIO connection to the server
@@ -235,7 +235,7 @@ $(document).ready(function() {
     function playSplideIntro () {
         setTimeout(function () {
             config.loading = false;
-            player.pause();
+            // player.pause();
         }, transitionAnimationConfig.introDuration)
         playDoorsOpen();
         hideLoadingAnimation();
@@ -251,51 +251,51 @@ $(document).ready(function() {
         const animationDuration = 1000;
 
          // css
-        //  doorsLeft.animate(
-        //     {
-        //         top: "-540px"
-        //     },
-        //     animationDuration,
-        //     () => { console.log("left door open") } // plays after animation
-        // )
-        // doorsRight.animate(
-        //     {
-        //         bottom: "-540px"
-        //     },
-        //     animationDuration, 
-        //     () => { console.log("right door open") } // plays after animation
-        // )
+         doorsLeft.animate(
+            {
+                top: "-540px"
+            },
+            animationDuration,
+            () => { console.log("left door open") } // plays after animation
+        )
+        doorsRight.animate(
+            {
+                bottom: "-540px"
+            },
+            animationDuration, 
+            () => { console.log("right door open") } // plays after animation
+        )
 
         // Plr
-        player.currentTime = 0;
-        player.play();
+        // player.currentTime = 0;
+        // player.play();
     }
     
     function playDoorsClose () {
         const animationDuration = 1000;
 
         // css
-        // doorsLeft.animate(
-        //     {
-        //         top: "0px"
-        //     }, 
-        //     animationDuration, 
-        //     () => { console.log("left door close") }
-        // )
-        // doorsRight.animate(
-        //     {
-        //         bottom: "0px"
-        //     }, 
-        //     animationDuration, 
-        //     () => { console.log("right door close") }
-        // )
+        doorsLeft.animate(
+            {
+                top: "0px"
+            }, 
+            animationDuration, 
+            () => { console.log("left door close") }
+        )
+        doorsRight.animate(
+            {
+                bottom: "0px"
+            }, 
+            animationDuration, 
+            () => { console.log("right door close") }
+        )
 
         // Plr
-        player.currentTime = 2;
-        player.play();
-        // setTimeout(function () {
-        //     player.pause();
-        // }, 2000);
+        // player.currentTime = 2;
+        // player.play();
+        // // setTimeout(function () {
+        // //     player.pause();
+        // // }, 2000);
     }
 
     function hideLoadingAnimation () {
