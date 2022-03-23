@@ -188,8 +188,8 @@ $(document).ready(function() {
     const doorsRight = $("#doors_right");
     
     // Placeholder in case I want to change default state
-    // initSplide();
-    // initPlyr();
+    initSplide();
+    // initPlyr(); // only ucomment if using video for the doors
 
     // Scokets
     var socket = io(); // SocketIO connection to the server
@@ -217,7 +217,7 @@ $(document).ready(function() {
             return;
         }
 
-        // loadNextAlbum()
+        loadNextAlbum()
 
         // If shes already tried to change albums, we play both the intro and outro
         // else, we play just the intro since we are already in loading state on startup
