@@ -10,7 +10,7 @@ let config = {
 
 let transitionAnimationConfig = {
     outroDuration: 2000,
-    introDuration: 2000,
+    introDuration: 1000,
 }
 
 const splideConfig = {
@@ -236,9 +236,9 @@ $(document).ready(function() {
         setTimeout(function () {
             config.loading = false;
             // player.pause();
+            hideLoadingAnimation();
         }, transitionAnimationConfig.introDuration)
         playDoorsOpen();
-        hideLoadingAnimation();
     }
 
     function playSplideOutro () {
