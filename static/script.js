@@ -119,7 +119,7 @@ let albums = [
 
 function initSplide () {
     // // Any init code here, like open the subway doors, etc.
-    loadNextAlbum();
+    // loadNextAlbum();
     
     // Append extra splides
     albums.forEach((album, i) => {
@@ -217,7 +217,7 @@ $(document).ready(function() {
             return;
         }
 
-        loadNextAlbum()
+        // loadNextAlbum()
 
         // If shes already tried to change albums, we play both the intro and outro
         // else, we play just the intro since we are already in loading state on startup
@@ -252,7 +252,7 @@ $(document).ready(function() {
 
          // css
          doorsLeft.animate(
-             {
+            {
                 top: "-540px"
             },
             animationDuration,
