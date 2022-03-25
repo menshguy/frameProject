@@ -119,7 +119,7 @@ let albums = [
 
 function initSplide () {
     // // Any init code here, like open the subway doors, etc.
-    loadNextAlbum();
+    // loadNextAlbum();
     
     // Append extra splides
     albums.forEach((album, i) => {
@@ -145,7 +145,8 @@ function onMount (splide) {
         
         // Dynamically load the first set of images based on the num_preloaded_images value
         let img_counter = 0;
-        while ( img_counter < num_preloaded_images ) {
+        // while ( img_counter < num_preloaded_images ) {
+        while ( img_counter < albums[currentAlbum].length ) {
             let src = `${ image_folder }/${ currentAlbum }/${ img_counter }.png`;
             // albums[ currentAlbum ].images.push( src );
             let elem = `<li class="splide__slide"> <img src="${ src }" /> </li>`;
@@ -158,20 +159,20 @@ function onMount (splide) {
 function onMoved (splide) {
     return () => {
         console.log("onMoved")
-        const { image_folder, currentAlbum, num_preloaded_images } = config;
-        let index = splide.Components.Controller.getIndex();
-        let index_of_next = index + ( num_preloaded_images - 1);
-        let album_length = albums[ currentAlbum ].length
-        let current_length = splide.length;
+        // const { image_folder, currentAlbum, num_preloaded_images } = config;
+        // let index = splide.Components.Controller.getIndex();
+        // let index_of_next = index + ( num_preloaded_images - 1);
+        // let album_length = albums[ currentAlbum ].length
+        // let current_length = splide.length;
     
-        // If the next image to load has not already been loaded, and we are within the length of the album, 
-        // load the next image
-        if ( current_length <= album_length ) {
-            // current_length.push(`${ image_folder }/${ currentAlbum }/${index_of_next}.png`)
-            let src = `${ image_folder }/${ currentAlbum }/${index_of_next}.png`
-            let elem = `<li class="splide__slide"> <img src="${src}" /> </li>`;
-            splide.add(elem);
-        }
+        // // If the next image to load has not already been loaded, and we are within the length of the album, 
+        // // load the next image
+        // if ( current_length <= album_length ) {
+        //     // current_length.push(`${ image_folder }/${ currentAlbum }/${index_of_next}.png`)
+        //     let src = `${ image_folder }/${ currentAlbum }/${index_of_next}.png`
+        //     let elem = `<li class="splide__slide"> <img src="${src}" /> </li>`;
+        //     splide.add(elem);
+        // }
     }
 }
 
