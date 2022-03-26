@@ -177,8 +177,8 @@ $(document).ready(function() {
     window.nextAlbum = nextAlbum; //For local development
 
     function nextImage (data) {
-        let next = getNextSlideIndex(albums[config.currentAlbum].splide);
-        albums[config.currentAlbum].splide.Components.Controller.go(next);
+        // let next = getNextSlideIndex(albums[config.currentAlbum].splide);
+        albums[config.currentAlbum].splide.go('>');
     }
 
     function getNextSlideIndex(splide) {
