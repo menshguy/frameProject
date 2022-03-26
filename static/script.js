@@ -129,7 +129,7 @@ function initSplide () {
         `);
 
         // Create each splide and mount it. 
-        let splide = new Splide( `.splide${ i }`, splideConfig )
+        let splide = new Splide( `#slider${ i }`, splideConfig )
         splide.on( 'mounted', () => { console.log("onMounted") } );
         splide.on( 'moved', () => { console.log("onMoved") } );
         splide.on( 'destroy', () => { console.log("onDestroy") } );
