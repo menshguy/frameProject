@@ -14,19 +14,16 @@ let transitionAnimationConfig = {
 
 const splideConfig = {
     type    : 'slide',
-    // height  : '800px',
-    // width   : '1000px',
-    // rewind  : true,
-    // // pagination: false,
-    // // arrows  : false,
-    // // lazyLoad: 'next',
-    // autoplay: false, interval: 5000, // autoplay interval
-    // perPage : 1,
-    // cover   : true
-};
-
-const plyrConfig = {
-    controls: [] // no controls
+    fixedHeight  : '800px',
+    fixedWidth   : '1000px',
+    rewind  : true,
+    updateOnMove : true,
+    // pagination: false,
+    // arrows  : false,
+    // lazyLoad: 'next',
+    autoplay: false, interval: 5000, // autoplay interval
+    perPage : 1,
+    cover   : true
 };
 
 let albums = [
@@ -140,7 +137,6 @@ function initSplide () {
         albums[i].splide = splide;
 
         // Hide the splide until it is needed
-        // $(`.splide${i}`).hide()
         splide.destroy()
         
         // Load all of the images for each splide
@@ -177,14 +173,7 @@ $(document).ready(function() {
     window.nextAlbum = nextAlbum; //For local development
 
     function nextImage (data) {
-        // let next = getNextSlideIndex(albums[config.currentAlbum].splide);
         albums[config.currentAlbum].splide.go('>');
-    }
-
-    function getNextSlideIndex(splide) {
-        let next = splide.Components.Controller.getNext();
-        if ( next < 0 ) next = 0; // if splide returns -1, return to first slide
-        return next;
     }
     
     function nextAlbum (data) {
