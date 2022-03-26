@@ -137,7 +137,7 @@ function initSplide () {
         splide.on( 'mounted', () => { console.log("onMounted") } );
         splide.on( 'moved', () => { console.log("onMoved") } );
         splide.on( 'destroy', () => { console.log("onDestroy") } );
-        splide.mount();
+        splide.mount({}, CSSTransition);
         albums[i].splide = splide;
 
         // Hide the splide until it is needed
@@ -317,3 +317,35 @@ $(document).ready(function() {
 
 })
 
+// https://splidejs.com/guides/transition/
+function CSSTransition( Splide, Components, options ) {
+    // const { bind } = EventInterface( Splide );
+    const { Move } = Components;
+    const { list } = Components.Elements;
+  
+    function mount() {}
+
+    function start( index, done ) {
+        // Converts the index to the position
+        const destination = Move.toPosition( index, true );
+    
+        // Applies the CSS transition
+        list.style.transition = 'transform 800ms cubic-bezier(.44,.65,.07,1.01)';
+    
+        // Moves the slider to the destination.
+        Move.translate( destination );
+    
+        // Calls the `done` callback.
+        done();
+    }
+  
+    function cancel() {
+        list.style.transition = '';
+    }
+  
+    return {
+        mount,
+        start,
+        cancel,
+    };
+}
