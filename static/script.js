@@ -4,8 +4,7 @@ let config = {
     shesHeldButtonOnce: false,
     loading: false,
     image_folder: 'static/images',
-    currentAlbum: 6,
-    num_preloaded_images: 4, // This is the number of images that will get loaded into the browser ahead of the current one
+    currentAlbum: -1,
 };
 
 let transitionAnimationConfig = {
@@ -118,11 +117,10 @@ let albums = [
 ];
 
 function initSplide () {
-    const { image_folder, currentAlbum, num_preloaded_images } = config
+    const { image_folder } = config
     
     // Creates all Albums and appends all images
-    // albums.forEach((album, i) => {
-    let i = 7
+    albums.forEach((album, i) => {
         // Create splide container for each album
         $( "#splide_container" ).append(`
             <div id="slider${ i }" class="splide${ i }">
@@ -149,13 +147,11 @@ function initSplide () {
         let img_counter = 0;
         while ( img_counter <= albums[i].length ) {
             let src = `${ image_folder }/${ i }/${ img_counter }.png`;
-            let colors = ['red', 'blue', 'green', 'yellow', 'orange', 'purple', 'pink', 'brown', 'black', 'white'];
             let elem = `<li class="splide__slide"> <img src="${ src }" /> </li>`;
-            // let elem = `<li class="splide__slide" style="background-color:${colors[img_counter]}"> TESTING ${img_counter} </li>`;
             albums[i].splide.add( elem );
             img_counter++;
         }
-    // })
+    })
 }
 
 $(document).ready(function() {
@@ -182,7 +178,13 @@ $(document).ready(function() {
 
     function nextImage (data) {
         let next = getNextSlideIndex(albums[config.currentAlbum].splide);
-        albums[config.currentAlbum].splide.go(next);
+        albums[config.currentAlbum].splide.Components.Controller.go(next);
+    }
+
+    function getNextSlideIndex(splide) {
+        let next = splide.Components.Controller.getNext();
+        if ( next < 0 ) next = 0; // if splide returns -1, return to first slide
+        return next;
     }
     
     function nextAlbum (data) {
@@ -279,11 +281,7 @@ $(document).ready(function() {
         loadingContainer.show();
     }
 
-    function getNextSlideIndex(splide) {
-        let next = splide.Components.Controller.getNext();
-        if ( next < 0 ) next = 0; // if splide returns -1, return to first slide
-        return next;
-    }
+ 
     
     function getNextAlbumIndex() {
         let next;
