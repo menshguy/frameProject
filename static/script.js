@@ -14,12 +14,12 @@ let transitionAnimationConfig = {
 }
 
 const splideConfig = {
-    type    : 'fade',
+    type    : 'slide',
     height  : '800px',
     width   : '1000px',
     rewind  : true,
     // pagination: false,
-    arrows  : false,
+    // arrows  : false,
     // lazyLoad: 'next',
     autoplay: false, interval: 5000, // autoplay interval
     perPage : 1,

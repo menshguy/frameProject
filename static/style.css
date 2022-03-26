@@ -53,6 +53,12 @@ p#subway_platform_text {
     z-index:10000;
 }
 
+.splide__arrows {
+    z-index: 100000000;
+    position: absolute;
+    left: 0;
+}
+
 .plyr_container {
     position: absolute;
     top: 0px;
