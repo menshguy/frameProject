@@ -53,6 +53,11 @@ p#subway_platform_text {
     z-index:10000;
 }
 
+.splide__slide.is-active {
+    transform: scale(1);
+    transition: transform .5s .4s;
+}
+
 .splide__arrows {
     z-index: 100000000;
     position: absolute;
