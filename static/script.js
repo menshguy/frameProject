@@ -19,9 +19,9 @@ const splideConfig = {
     width   : '1000px',
     // pagination: false,
     arrows  : false,
-    lazyLoad: 'next',
+    // lazyLoad: 'next',
     autoplay: false,
-    interval: 5000, // autoplay interval
+        interval: 5000, // autoplay interval
     perPage : 1,
     cover   : true
 };
