@@ -4,7 +4,7 @@ let config = {
     shesHeldButtonOnce: false,
     loading: false,
     image_folder: 'static/images',
-    currentAlbum: -1,
+    currentAlbum: 6,
     num_preloaded_images: 4, // This is the number of images that will get loaded into the browser ahead of the current one
 };
 
@@ -121,7 +121,8 @@ function initSplide () {
     const { image_folder, currentAlbum, num_preloaded_images } = config
     
     // Creates all Albums and appends all images
-    albums.forEach((album, i) => {
+    // albums.forEach((album, i) => {
+    let i = 7
         // Create splide container for each album
         $( "#splide_container" ).append(`
             <div id="slider${ i }" class="splide${ i }">
@@ -137,7 +138,7 @@ function initSplide () {
         splide.on( 'mounted', () => { console.log("onMounted") } );
         splide.on( 'moved', () => { console.log("onMoved") } );
         splide.on( 'destroy', () => { console.log("onDestroy") } );
-        splide.mount({}, CSSTransition);
+        splide.mount();
         albums[i].splide = splide;
 
         // Hide the splide until it is needed
@@ -149,12 +150,12 @@ function initSplide () {
         while ( img_counter <= albums[i].length ) {
             let src = `${ image_folder }/${ i }/${ img_counter }.png`;
             let colors = ['red', 'blue', 'green', 'yellow', 'orange', 'purple', 'pink', 'brown', 'black', 'white'];
-            // let elem = `<li class="splide__slide"> <img src="${ src }" /> </li>`;
-            let elem = `<li class="splide__slide" style="background-color:${colors[img_counter]}"> TESTING ${img_counter} </li>`;
+            let elem = `<li class="splide__slide"> <img src="${ src }" /> </li>`;
+            // let elem = `<li class="splide__slide" style="background-color:${colors[img_counter]}"> TESTING ${img_counter} </li>`;
             albums[i].splide.add( elem );
             img_counter++;
         }
-    })
+    // })
 }
 
 $(document).ready(function() {
@@ -318,34 +319,34 @@ $(document).ready(function() {
 })
 
 // https://splidejs.com/guides/transition/
-function CSSTransition( Splide, Components, options ) {
-    // const { bind } = EventInterface( Splide );
-    const { Move } = Components;
-    const { list } = Components.Elements;
+// function CSSTransition( Splide, Components, options ) {
+//     // const { bind } = EventInterface( Splide );
+//     const { Move } = Components;
+//     const { list } = Components.Elements;
   
-    function mount() {}
+//     function mount() {}
 
-    function start( index, done ) {
-        // Converts the index to the position
-        const destination = Move.toPosition( index, true );
+//     function start( index, done ) {
+//         // Converts the index to the position
+//         const destination = Move.toPosition( index, true );
     
-        // Applies the CSS transition
-        list.style.transition = 'transform 800ms cubic-bezier(.44,.65,.07,1.01)';
+//         // Applies the CSS transition
+//         list.style.transition = 'transform 800ms cubic-bezier(.44,.65,.07,1.01)';
     
-        // Moves the slider to the destination.
-        Move.translate( destination );
+//         // Moves the slider to the destination.
+//         Move.translate( destination );
     
-        // Calls the `done` callback.
-        done();
-    }
+//         // Calls the `done` callback.
+//         done();
+//     }
   
-    function cancel() {
-        list.style.transition = '';
-    }
+//     function cancel() {
+//         list.style.transition = '';
+//     }
   
-    return {
-        mount,
-        start,
-        cancel,
-    };
-}
+//     return {
+//         mount,
+//         start,
+//         cancel,
+//     };
+// }
