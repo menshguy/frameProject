@@ -118,67 +118,41 @@ let albums = [
 ];
 
 function initSplide () {
-    // // Any init code here, like open the subway doors, etc.
-    // loadNextAlbum();
+    const { image_folder, currentAlbum, num_preloaded_images } = config
     
-    // Append extra splides
+    // Creates all Albums and appends all images
     albums.forEach((album, i) => {
-        if ( i > 0 ) { // avoid duplicating the first splide
-            $( "#splide_container" ).append(`
-                <div id="slider${i}" class="splide${ i }">
-                    <div class="splide__track">
-                        <ul class="splide__list">
-                            <li class="splide__slide"></li>
-                        </ul>
-                    </div>
+        // Create splide container for each album
+        $( "#splide_container" ).append(`
+            <div id="slider${ i }" class="splide${ i }">
+                <div class="splide__track">
+                    <ul class="splide__list">
+                    </ul>
                 </div>
-            ` );
-        }
+            </div>
+        `);
 
-    })
-}
+        // Create each splide and mount it. 
+        let splide = new Splide( `.splide${ i }`, splideConfig )
+        splide.on( 'mounted', () => { console.log("onMounted") } );
+        splide.on( 'moved', () => { console.log("onMoved") } );
+        splide.on( 'destroy', () => { console.log("onDestroy") } );
+        splide.mount();
+        albums[i].splide = splide;
 
-function onMount (splide) {
-    return () => {
-        console.log("onMount")
-        const { image_folder, currentAlbum, num_preloaded_images } = config
+        // Hide the splide until it is needed
+        // $(`.splide${i}`).hide()
+        splide.destroy()
         
-        // Dynamically load the first set of images based on the num_preloaded_images value
+        // Load all of the images for each splide
         let img_counter = 0;
-        // while ( img_counter < num_preloaded_images ) {
-        while ( img_counter < albums[currentAlbum].length ) {
-            let src = `${ image_folder }/${ currentAlbum }/${ img_counter }.png`;
-            // albums[ currentAlbum ].images.push( src );
+        while ( img_counter <= albums[i].length ) {
+            let src = `${ image_folder }/${ i }/${ img_counter }.png`;
             let elem = `<li class="splide__slide"> <img src="${ src }" /> </li>`;
-            splide.add( elem );
+            albums[i].splide.add( elem );
             img_counter++;
         }
-    }
-}
-
-function onMoved (splide) {
-    return () => {
-        console.log("onMoved")
-        // const { image_folder, currentAlbum, num_preloaded_images } = config;
-        // let index = splide.Components.Controller.getIndex();
-        // let index_of_next = index + ( num_preloaded_images - 1);
-        // let album_length = albums[ currentAlbum ].length
-        // let current_length = splide.length;
-    
-        // // If the next image to load has not already been loaded, and we are within the length of the album, 
-        // // load the next image
-        // if ( current_length <= album_length ) {
-        //     // current_length.push(`${ image_folder }/${ currentAlbum }/${index_of_next}.png`)
-        //     let src = `${ image_folder }/${ currentAlbum }/${index_of_next}.png`
-        //     let elem = `<li class="splide__slide"> <img src="${src}" /> </li>`;
-        //     splide.add(elem);
-        // }
-    }
-}
-
-function initPlyr () {
-    //Instatiate Plyr - https://github.com/sampotts/plyr
-    player = new Plyr('#player', plyrConfig);
+    })
 }
 
 $(document).ready(function() {
@@ -188,24 +162,20 @@ $(document).ready(function() {
     const doorsLeft = $("#doors_left");
     const doorsRight = $("#doors_right");
     
-    // Placeholder in case I want to change default state
+    // Generate a "splide" slider for each album
     initSplide();
-    // initPlyr(); // only ucomment if using video for the doors
 
-    // Scokets
+    // Init Scokets
     var socket = io(); // SocketIO connection to the server
-    
     socket.on('connected', function(data) { 
         console.log("connected to socket.io, response:", data) // SocketIO Conection event∏
     });
-
-    // Next Image Event - Jquery function is for local dev.
     socket.on('next_image', nextImage);
-    $("#mock_nextImage").click( nextImage );
-    
-    // Next Album Event - Jquery function is for local dev.
+    $("#mock_nextImage").click( nextImage ); //For local development
+    window.nextImage = nextImage; 
     socket.on('next_album', nextAlbum);
-    $("#mock_nextAlbum").click( nextAlbum );
+    $("#mock_nextAlbum").click( nextAlbum ); //For local development
+    window.nextAlbum = nextAlbum; //For local development
 
     function nextImage (data) {
         let next = getNextSlideIndex(albums[config.currentAlbum].splide);
@@ -213,11 +183,10 @@ $(document).ready(function() {
     }
     
     function nextAlbum (data) {
+        
         // If we are loading and shes already tried to change albums, we block this action
-        if (config.loading) {
-            return;
-        }
-
+        if (config.loading) return;
+        
         loadNextAlbum()
 
         // If shes already tried to change albums, we play both the intro and outro
@@ -307,54 +276,42 @@ $(document).ready(function() {
         loadingContainer.show();
     }
 
+    function getNextSlideIndex(splide) {
+        let next = splide.Components.Controller.getNext();
+        if ( next < 0 ) next = 0; // if splide returns -1, return to first slide
+        return next;
+    }
+    
+    function getNextAlbumIndex() {
+        let next;
+        if (config.currentAlbum < (albums.length - 1))
+        {
+            next = config.currentAlbum + 1
+        } 
+        else
+        {
+            next = 0
+        }
+        return next;
+    }
+    
+    function loadNextAlbum () {
+        let previousAlbum = config.currentAlbum;
+        config.currentAlbum = getNextAlbumIndex();
+    
+        // Hide Previous album (if we are not on the first album)
+        if (albums[previousAlbum]?.splide) {
+            albums[previousAlbum].splide.destroy();
+            $(`.splide${previousAlbum}`).hide()
+        }
+    
+        // Show the current Album
+        if (albums[ config.currentAlbum ].splide)
+        {
+            albums[ config.currentAlbum ].splide.mount()
+        }
+    
+    }
+
 })
 
-function getNextSlideIndex(splide) {
-    let next = splide.Components.Controller.getNext();
-    if ( next < 0 ) next = 0; // if splide returns -1, return to first slide
-    return next;
-}
-
-function getNextAlbumIndex() {
-    let next;
-    if (config.currentAlbum < (albums.length - 1))
-    {
-        next = config.currentAlbum + 1
-    } 
-    else
-    {
-        next = 0
-    }
-    return next;
-}
-
-function loadNextAlbum () {
-
-    let previousAlbum = config.currentAlbum;
-    config.currentAlbum = getNextAlbumIndex();
-
-    if (albums[previousAlbum]?.splide) {
-        albums[previousAlbum].splide.destroy();
-        $(`.splide${previousAlbum}`).hide()
-    }
-
-    // Mounth new album splide
-    if (!albums[ config.currentAlbum ].splide)
-    {
-        let splide = new Splide( `.splide${ config.currentAlbum }`, splideConfig );
-        albums[config.currentAlbum].splide = splide
-
-        splide.on( 'mounted', onMount(splide) );
-        splide.on( 'moved', onMoved(splide) );
-        // // splide.on( 'destroy', onDestroy(splide) );
-        
-        splide.mount();
-        //  $(`.splide${ config.currentAlbum }`).show()
-    }
-    else 
-    {
-        albums[ config.currentAlbum ].splide.mount()
-        // $(`.splide${config.currentAlbum}`).show()
-    }
-
-}
