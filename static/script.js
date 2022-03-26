@@ -15,16 +15,15 @@ let transitionAnimationConfig = {
 
 const splideConfig = {
     type    : 'slide',
-    // height  : '800px',
-    // width   : '1000px',
+    height  : '800px',
+    width   : '1000px',
     rewind  : true,
     // pagination: false,
     // arrows  : false,
     // lazyLoad: 'next',
     autoplay: false, interval: 5000, // autoplay interval
     perPage : 1,
-    focus: 'center',
-    // cover   : true
+    cover   : true
 };
 
 const plyrConfig = {
@@ -149,7 +148,8 @@ function initSplide () {
         let img_counter = 0;
         while ( img_counter <= albums[i].length ) {
             let src = `${ image_folder }/${ i }/${ img_counter }.png`;
-            let elem = `<li class="splide__slide"> <img src="${ src }" /> </li>`;
+            // let elem = `<li class="splide__slide"> <img src="${ src }" /> </li>`;
+            let elem = `<li class="splide__slide"> TESTING ${img_counter} </li>`;
             albums[i].splide.add( elem );
             img_counter++;
         }
