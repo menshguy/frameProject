@@ -148,8 +148,9 @@ function initSplide () {
         let img_counter = 0;
         while ( img_counter <= albums[i].length ) {
             let src = `${ image_folder }/${ i }/${ img_counter }.png`;
+            let colors = ['red', 'blue', 'green', 'yellow', 'orange', 'purple', 'pink', 'brown', 'black', 'white'];
             // let elem = `<li class="splide__slide"> <img src="${ src }" /> </li>`;
-            let elem = `<li class="splide__slide"> TESTING ${img_counter} </li>`;
+            let elem = `<li class="splide__slide" style="background-color:${colors[img_counter]}"> TESTING ${img_counter} </li>`;
             albums[i].splide.add( elem );
             img_counter++;
         }
