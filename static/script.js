@@ -15,15 +15,16 @@ let transitionAnimationConfig = {
 
 const splideConfig = {
     type    : 'slide',
-    height  : '800px',
-    width   : '1000px',
+    // height  : '800px',
+    // width   : '1000px',
     rewind  : true,
     // pagination: false,
     // arrows  : false,
     // lazyLoad: 'next',
     autoplay: false, interval: 5000, // autoplay interval
     perPage : 1,
-    cover   : true
+    focus: 'center',
+    // cover   : true
 };
 
 const plyrConfig = {
