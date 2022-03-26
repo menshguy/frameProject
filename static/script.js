@@ -14,13 +14,13 @@ let transitionAnimationConfig = {
 }
 
 const splideConfig = {
-    type    : 'loop',
+    type    : 'slide',
     height  : '800px',
     width   : '1000px',
     // pagination: false,
     arrows  : false,
     lazyLoad: 'next',
-    autoplay: true,
+    autoplay: false,
     interval: 5000, // autoplay interval
     perPage : 1,
     cover   : true
