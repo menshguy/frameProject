@@ -5,6 +5,14 @@
     bottom: 40px;
     right: 70px;
 }
+.swiper{
+    height: 800px;
+    width: 1000px;
+    position: absolute;
+    bottom: 40px;
+    right: 70px;
+    z-index: 1000000000000;
+}
 
 .loading_container {
     position: absolute;

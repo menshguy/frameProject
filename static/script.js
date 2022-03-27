@@ -1,4 +1,5 @@
-let player;
+console.log("Swiper", Swiper)
+// let player;
 
 let config = {
     shesHeldButtonOnce: false,
@@ -12,19 +13,41 @@ let transitionAnimationConfig = {
     introDuration: 1000,
 }
 
-const splideConfig = {
-    type    : 'slide',
-    fixedHeight  : '800px',
-    fixedWidth   : '1000px',
-    rewind  : true,
-    updateOnMove : true,
-    // pagination: false,
-    // arrows  : false,
-    // lazyLoad: 'next',
-    autoplay: false, interval: 5000, // autoplay interval
-    perPage : 1,
-    cover   : true
-};
+// const splideConfig = {
+//     type    : 'slide',
+//     fixedHeight  : '800px',
+//     fixedWidth   : '1000px',
+//     rewind  : true,
+//     updateOnMove : true,
+//     // pagination: false,
+//     // arrows  : false,
+//     // lazyLoad: 'next',
+//     autoplay: false, interval: 5000, // autoplay interval
+//     perPage : 1,
+//     cover   : true
+// };
+
+const swiperConfig = {
+    // Optional parameters
+    direction: 'vertical',
+    loop: true,
+  
+    // If we need pagination
+    pagination: {
+      el: '.swiper-pagination',
+    },
+  
+    // Navigation arrows
+    navigation: {
+      nextEl: '.swiper-button-next',
+      prevEl: '.swiper-button-prev',
+    },
+  
+    // And if we need scrollbar
+    scrollbar: {
+      el: '.swiper-scrollbar',
+    },
+}
 
 let albums = [
     {
@@ -150,6 +173,10 @@ function initSplide () {
     })
 }
 
+function initSwiper () {
+    const swiper = new Swiper('.swiper', swiperConfig);
+}
+
 $(document).ready(function() {
 
     // Elements
@@ -158,7 +185,8 @@ $(document).ready(function() {
     const doorsRight = $("#doors_right");
     
     // Generate a "splide" slider for each album
-    initSplide();
+    // initSplide();
+    initSwiper();
 
     // Init Scokets
     var socket = io(); // SocketIO connection to the server

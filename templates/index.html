@@ -4,12 +4,17 @@
         <title>Frame Project - Basic Setup</title>
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="stylesheet" href="static/bootstrap.min.css">
-        <link rel="stylesheet" href="static/splide.min.css">
+        <!-- <link rel="stylesheet" href="static/splide.min.css"> -->
+        <link
+            rel="stylesheet"
+            href="https://unpkg.com/swiper@8/swiper-bundle.min.css"
+        />
         <link rel="stylesheet" href="static/style.css">
         <!-- <script src="https://cdn.socket.io/4.4.0/socket.io.min.js" integrity="sha384-1fOn6VtTq3PWwfsOrk45LnYcGosJwzMHv+Xh/Jx5303FVOXzEnw0EpLv30mtjmlj" crossorigin="anonymous"></script> -->
+        <script src="static/swiper-bundle.min.js"></script>
         <script src="static/socket.io.min.js"></script>
         <script src="static/jquery.min.js"></script>
-        <script src="static/splide.min.js"></script>
+        <!-- <script src="static/splide.min.js"></script> -->
         <script src="static/plyr.js"></script>
         <style>
             /* This will hide the plyr controls that we dont want/need */
@@ -21,8 +26,76 @@
     <body>
 
     <!-- Slideshow -->
-    <div id="splide_container" class="splide_container">
+    <!-- <div id="splide_container" class="splide_container"> -->
         <!-- Rest of Splides are appended here in script.js -->
+    <!-- </div> -->
+    <!-- Slider main container -->
+    <div class="swiper">
+        <!-- Additional required wrapper -->
+        <div class="swiper-wrapper">
+            <!-- Slides -->
+            <div class="swiper-slide">
+                <img src="static/images/0/0.png" /> 
+            </div>
+            <div class="swiper-slide">
+                <img src="static/images/0/1.png" /> 
+            </div>
+            <div class="swiper-slide">
+                <img src="static/images/0/2.png" /> 
+            </div>
+            <div class="swiper-slide">
+                <img src="static/images/0/3.png" /> 
+            </div>
+            <div class="swiper-slide">
+                <img src="static/images/0/4.png" /> 
+            </div>
+            <div class="swiper-slide">
+                <img src="static/images/0/5.png" /> 
+            </div>
+            <div class="swiper-slide">
+                <img src="static/images/0/6.png" /> 
+            </div>
+            <div class="swiper-slide">
+                <img src="static/images/0/7.png" /> 
+            </div>
+            <div class="swiper-slide">
+                <img src="static/images/0/8.png" /> 
+            </div>
+            <div class="swiper-slide">
+                <img src="static/images/0/9.png" /> 
+            </div>
+            <div class="swiper-slide">
+                <img src="static/images/0/10.png" /> 
+            </div>
+            <div class="swiper-slide">
+                <img src="static/images/0/11.png" /> 
+            </div>
+            <div class="swiper-slide">
+                <img src="static/images/0/12.png" /> 
+            </div>
+            <div class="swiper-slide">
+                <img src="static/images/0/13.png" /> 
+            </div>
+            <div class="swiper-slide">
+                <img src="static/images/0/14.png" /> 
+            </div>
+            <div class="swiper-slide">
+                <img src="static/images/0/15.png" /> 
+            </div>
+            <div class="swiper-slide">
+                <img src="static/images/0/16.png" /> 
+            </div>
+        
+        </div>
+        <!-- If we need pagination -->
+        <div class="swiper-pagination"></div>
+    
+        <!-- If we need navigation buttons -->
+        <div class="swiper-button-prev"></div>
+        <div class="swiper-button-next"></div>
+    
+        <!-- If we need scrollbar -->
+        <div class="swiper-scrollbar"></div>
     </div>
 
     <!-- Subway Platform-->
