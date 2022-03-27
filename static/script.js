@@ -1,11 +1,8 @@
-console.log("Swiper", Swiper)
-// let player;
-
 let config = {
     shesHeldButtonOnce: false,
     loading: false,
     image_folder: 'static/images',
-    currentAlbum: -1,
+    currentAlbum: -1
 };
 
 let transitionAnimationConfig = {
@@ -13,23 +10,9 @@ let transitionAnimationConfig = {
     introDuration: 1000,
 }
 
-// const splideConfig = {
-//     type    : 'slide',
-//     fixedHeight  : '800px',
-//     fixedWidth   : '1000px',
-//     rewind  : true,
-//     updateOnMove : true,
-//     // pagination: false,
-//     // arrows  : false,
-//     // lazyLoad: 'next',
-//     autoplay: false, interval: 5000, // autoplay interval
-//     perPage : 1,
-//     cover   : true
-// };
-
 const swiperConfig = {
     // Optional parameters
-    direction: 'vertical',
+    direction: 'horizontal',
     loop: true,
   
     // If we need pagination
@@ -53,128 +36,133 @@ let albums = [
     {
         length: 49,
         images: [],
-        splide: null,
+        swiper: null,
         name: "125th St / Mis·cel·la·ne·ous"
     },
     {
         length: 35,
         images: [],
-        splide: null,
+        swiper: null,
         name: "96th St & Date Nights"
     },
     {
         length: 27,
         images: [],
-        splide: null,
+        swiper: null,
         name: "86th & Hiking in NY"
     },
     {
         length: 23,
         images: [],
-        splide: null,
+        swiper: null,
         name: "72nd & Van Life"
     },
     {
         length: 11,
         images: [],
-        splide: null,
+        swiper: null,
         name: "Lexington & Ski Bums"
     },
     {
         length: 10,
         images: [],
-        splide: null,
+        swiper: null,
         name: "57th & San Fransisco Softies"
     },
     {
         length: 27,
         images: [],
-        splide: null,
+        swiper: null,
         name: "42nd St & Home Cooking "
     },
     {
         length: 3,
         images: [],
-        splide: null,
+        swiper: null,
         name: "Times Sq & Lords of the land"
     },
     {
         length: 8,
         images: [],
-        splide: null,
+        swiper: null,
         name: "34th St - Day Trippers"
     },
     {
         length: 6,
         images: [],
-        splide: null,
+        swiper: null,
         name: "14th st & Xmas '21"
     },
     {
         length: 5,
         images: [],
-        splide: null,
+        swiper: null,
         name: "East 7th & Chewish"
     },
     {
         length: 4,
         images: [],
-        splide: null,
+        swiper: null,
         name: "Canal St & Baby J"
     },
     {
         length: 6,
         images: [],
-        splide: null,
+        swiper: null,
         name: "Fulton St & Weddings"
     },
     {
         length: 10,
         images: [],
-        splide: null,
+        swiper: null,
         name: "Wall St & Narcolepsy"
     },
 ];
 
-function initSplide () {
+function initSwiper () {
     const { image_folder } = config
     
     // Creates all Albums and appends all images
     albums.forEach((album, i) => {
         // Create splide container for each album
-        $( "#splide_container" ).append(`
-            <div id="slider${ i }" class="splide${ i }">
-                <div class="splide__track">
-                    <ul class="splide__list">
-                    </ul>
+        
+        $( "#swipers_container" ).append(`
+            <div class="swiper" id="swiper${ i }">
+                <!-- Additional required wrapper -->
+                <div class="swiper-wrapper">
+                    <!-- Slides Here -->
                 </div>
+                <!-- If we need pagination -->
+                <div class="swiper-pagination"></div>
+
+                <!-- If we need navigation buttons -->
+                <div class="swiper-button-prev"></div>
+                <div class="swiper-button-next"></div>
+
+                <!-- If we need scrollbar -->
+                <div class="swiper-scrollbar"></div>
             </div>
         `);
 
-        // Create each splide and mount it. 
-        let splide = new Splide( `#slider${ i }`, splideConfig )
-        splide.on( 'mounted', () => { console.log("onMounted") } );
-        splide.on( 'moved', () => { console.log("onMoved") } );
-        splide.on( 'destroy', () => { console.log("onDestroy") } );
-        splide.mount();
-        albums[i].splide = splide;
+        // Create each swiper
+        let swiper = new Swiper(`#swiper${ i }`, swiperConfig);
+        albums[i].swiper = swiper;
 
-        // Hide the splide until it is needed
-        splide.destroy()
-        
-        // Load all of the images for each splide
-        let img_counter = 0;
-        while ( img_counter <= albums[i].length ) {
-            let src = `${ image_folder }/${ i }/${ img_counter }.png`;
-            let elem = `<li class="splide__slide"> <img src="${ src }" /> </li>`;
-            albums[i].splide.add( elem );
-            img_counter++;
+        // Load all of the images for each swiper
+        for (let j = 0; j < albums[j].length; j++) {
+            let src = `${ image_folder }/${ i }/${ j }.png`;
+            let elem = `
+                <div class="swiper-slide">
+                    <img src="${ src }" /> 
+                </div>
+            `;
+            albums[i].swiper.appendSlide( elem );
         }
-    })
-}
 
-function initSwiper () {
-    const swiper = new Swiper('.swiper', swiperConfig);
+        // Hide the swiper until it is needed
+        $(`#swiper${ i }`).hide();
+        albums[i].swiper.update()
+    })
 }
 
 $(document).ready(function() {
@@ -184,8 +172,7 @@ $(document).ready(function() {
     const doorsLeft = $("#doors_left");
     const doorsRight = $("#doors_right");
     
-    // Generate a "splide" slider for each album
-    // initSplide();
+    // Generate swiper albums and images
     initSwiper();
 
     // Init Scokets
@@ -201,7 +188,7 @@ $(document).ready(function() {
     window.nextAlbum = nextAlbum; //For local development
 
     function nextImage (data) {
-        albums[config.currentAlbum].splide.go('>');
+        albums[config.currentAlbum].swiper.slideNext();
     }
     
     function nextAlbum (data) {
@@ -221,6 +208,21 @@ $(document).ready(function() {
         } else {
             config.shesHeldButtonOnce = true;
             playSplideIntro();
+        }
+    }
+
+    function loadNextAlbum () {
+        let previousAlbum = config.currentAlbum;
+        config.currentAlbum = getNextAlbumIndex();
+    
+        // Hide Previous album (if we are not on the first album)
+        if (albums[previousAlbum]?.swiper) {
+            $(`#swiper${previousAlbum}`).hide()
+        }
+        
+        // Show the current Album
+        if (albums[ config.currentAlbum ].swiper) {
+            $(`#swiper${config.currentAlbum}`).show()
         }
     }
 
@@ -297,8 +299,6 @@ $(document).ready(function() {
     function showLoadingAnimation () {
         loadingContainer.show();
     }
-
- 
     
     function getNextAlbumIndex() {
         let next;
@@ -313,55 +313,6 @@ $(document).ready(function() {
         return next;
     }
     
-    function loadNextAlbum () {
-        let previousAlbum = config.currentAlbum;
-        config.currentAlbum = getNextAlbumIndex();
-    
-        // Hide Previous album (if we are not on the first album)
-        if (albums[previousAlbum]?.splide) {
-            albums[previousAlbum].splide.destroy();
-            $(`.splide${previousAlbum}`).hide()
-        }
-    
-        // Show the current Album
-        if (albums[ config.currentAlbum ].splide)
-        {
-            albums[ config.currentAlbum ].splide.mount()
-        }
-    
-    }
+
 
 })
-
-// https://splidejs.com/guides/transition/
-// function CSSTransition( Splide, Components, options ) {
-//     // const { bind } = EventInterface( Splide );
-//     const { Move } = Components;
-//     const { list } = Components.Elements;
-  
-//     function mount() {}
-
-//     function start( index, done ) {
-//         // Converts the index to the position
-//         const destination = Move.toPosition( index, true );
-    
-//         // Applies the CSS transition
-//         list.style.transition = 'transform 800ms cubic-bezier(.44,.65,.07,1.01)';
-    
-//         // Moves the slider to the destination.
-//         Move.translate( destination );
-    
-//         // Calls the `done` callback.
-//         done();
-//     }
-  
-//     function cancel() {
-//         list.style.transition = '';
-//     }
-  
-//     return {
-//         mount,
-//         start,
-//         cancel,
-//     };
-// }
