@@ -149,7 +149,7 @@ function initSwiper () {
         albums[i].swiper = swiper;
 
         // Load all of the images for each swiper
-        for (let j = 0; j < albums[j].length; j++) {
+        for (let j = 0; j < albums[i].length; j++) {
             let src = `${ image_folder }/${ i }/${ j }.png`;
             let elem = `
                 <div class="swiper-slide">
