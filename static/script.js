@@ -119,6 +119,7 @@ let albums = [
     },
 ];
 
+https://swiperjs.com/swiper-api#methods-and-properties
 function initSwiper () {
     const { image_folder } = config
     
