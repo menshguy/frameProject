@@ -124,8 +124,8 @@ function initSwiper () {
     
     // Creates all Albums and appends all images
     albums.forEach((album, i) => {
-        // Create splide container for each album
         
+        // Create swiper container for each album
         $( "#swipers_container" ).append(`
             <div class="swiper" id="swiper${ i }">
                 <!-- Additional required wrapper -->
@@ -133,14 +133,14 @@ function initSwiper () {
                     <!-- Slides Here -->
                 </div>
                 <!-- If we need pagination -->
-                <div class="swiper-pagination"></div>
+                <!-- <div class="swiper-pagination"></div> -->
 
                 <!-- If we need navigation buttons -->
-                <div class="swiper-button-prev"></div>
-                <div class="swiper-button-next"></div>
+                <!-- <div class="swiper-button-prev"></div> -->
+                <!-- <div class="swiper-button-next"></div> -->
 
                 <!-- If we need scrollbar -->
-                <div class="swiper-scrollbar"></div>
+                <!-- <div class="swiper-scrollbar"></div>
             </div>
         `);
 
@@ -201,13 +201,13 @@ $(document).ready(function() {
         // If shes already tried to change albums, we play both the intro and outro
         // else, we play just the intro since we are already in loading state on startup
         if (config.shesHeldButtonOnce){
-            playSplideOutro();
+            playOutro();
             setTimeout(() => {
-                playSplideIntro();
+                playIntro();
             } , transitionAnimationConfig.outroDuration);
         } else {
             config.shesHeldButtonOnce = true;
-            playSplideIntro();
+            playIntro();
         }
     }
 
@@ -226,7 +226,7 @@ $(document).ready(function() {
         }
     }
 
-    function playSplideIntro () {
+    function playIntro () {
         setTimeout(function () {
             config.loading = false;
             // player.pause();
@@ -235,7 +235,7 @@ $(document).ready(function() {
         playDoorsOpen();
     }
 
-    function playSplideOutro () {
+    function playOutro () {
         config.loading = true;
         playDoorsClose();
         showLoadingAnimation();
@@ -312,7 +312,5 @@ $(document).ready(function() {
         }
         return next;
     }
-    
-
 
 })
