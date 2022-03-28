@@ -14,6 +14,8 @@ const swiperConfig = {
     // Optional parameters
     direction: 'horizontal',
     loop: true,
+    preloadImages: true,
+    updateOnImagesReady: true,
   
     // If we need pagination
     pagination: {
