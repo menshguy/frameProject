@@ -5,7 +5,7 @@
 # 2. COMMENT OUT THE "Device.pin_factory = MockFactory()" LINE BELOW!
 # 4. YOU MUST COMMENT OUT THE TEST BUTTONS IN THE INDEX.HTML
 
-print("App.py starts...")
+print("App.py starts updated...")
 
 from http.client import MULTI_STATUS
 from flask import Flask, request, jsonify, render_template
