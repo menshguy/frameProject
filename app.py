@@ -5,7 +5,7 @@
 # 2. COMMENT OUT THE "Device.pin_factory = MockFactory()" LINE BELOW!
 # 4. YOU MUST COMMENT OUT THE TEST BUTTONS IN THE INDEX.HTML
 
-print("App.py starts updated 4...")
+print("App.py Starts....")
 
 from http.client import MULTI_STATUS
 from flask import Flask, request, jsonify, render_template
@@ -39,7 +39,7 @@ pi_ip_address = '192.168.0.15' # This addres is static:  https://www.makeuseof.c
 host = '127.0.0.1'
 port = 5001
 local_url = 'http://{}:{}/'.format(host, port)
-print("local_url: ", local_url)
+print("local url: ", local_url)
 # ----- End Pi Board ----- #
 
 # ----- Methods ----- #
