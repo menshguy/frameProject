@@ -7,20 +7,18 @@
 
 print("App.py runs...")
 import os
-from http.client import MULTI_STATUS
 from flask import Flask, request, jsonify, render_template
 from flask_socketio import SocketIO, emit
 from subprocess import check_output
 
 # LOCAL DEVELOPMENT IMPORTS
-from gpiozero import Device, Button, LED
-from gpiozero.pins.mock import MockFactory
+# from gpiozero import Device, Button, LED
+# from gpiozero.pins.mock import MockFactory
 # PROD IMPORTS
-# from gpiozero import Button, LED
-
+from gpiozero import Button, LED
 
 # LOCAL DEVELOPMENT - Mock RPi Pins (https://gpiozero.readthedocs.io/en/stable/api_pins.html#mock-pins)
-Device.pin_factory = MockFactory()
+# Device.pin_factory = MockFactory()
 
 # ----- Setup ----- #
 app = Flask(__name__)
