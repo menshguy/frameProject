@@ -1,11 +1,11 @@
 #!/home/pi/Documents/frame_project_sockets/venv/bin/python3
 
 # TO DEVELOP LOCALLY YOU MUST:
-# 1. YOU ABSOLUTELY MUST REMOVE "DEVICE" FROM THE "from gpiozero import Device, Button, LED" and ""from gpiozero.pins.mock import MockFactory" LINEs Below!!! (NOT SURE WHY)
+# 1. YOU ABSOLUTELY MUST REMOVE "DEVICE" FROM THE "from gpiozero import Device, Button, LED" 
+# 		and ""from gpiozero.pins.mock import MockFactory" LINEs Below!!! (NOT SURE WHY)
 # 2. COMMENT OUT THE "Device.pin_factory = MockFactory()" LINE BELOW!
 # 4. YOU MUST COMMENT OUT THE TEST BUTTONS IN THE INDEX.HTML
 
-print("App.py runs...")
 import os
 from flask import Flask, request, jsonify, render_template
 from flask_socketio import SocketIO, emit
@@ -25,6 +25,7 @@ from gpiozero import Button, LED
 projectRoot = "/home/pi/Documents/frame_project_sockets"
 
 
+print("App.py runs...")
 
 # ----- Setup ----- #
 app = Flask(__name__)

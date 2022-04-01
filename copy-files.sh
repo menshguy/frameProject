@@ -8,20 +8,20 @@
 
 echo "Copy Files runs..."
 
-DRIVE_NAME="Frame_Project_Pics"
+DRIVE_NAME="ALBUMS"
 #-- --------------------------- --#
 #-- LOCAL DEVELOPMENT VARIABLES --#
 #-- --------------------------- --#
 # PROJECT_ROOT="/Users/jeffreyfenster/Documents/02_Personal/01_Projects/frame_project/local_development"
-# DRIVE_DIRECTORY="/Volumes/$DRIVE_NAME"
+# DRIVE_ROOT="/Volumes/$DRIVE_NAME"
 #-- ------------- --#
 #-- RPi VARIABLES --#
 #-- ------------- --#
 PROJECT_ROOT="/home/pi/Documents/frame_project_sockets"
-DRIVE_DIRECTORY="/media/pi/$DRIVE_NAME"
+DRIVE_ROOT="/media/pi/$DRIVE_NAME"
 
 BLOCKERFILE_NAME="DELETE_ME_TO_UPDATE_IMAGES"
-BLOCKERFILE=$DRIVE_DIRECTORY/"$BLOCKERFILE_NAME".txt
+BLOCKERFILE=$DRIVE_ROOT/"$BLOCKERFILE_NAME".txt
 
 # Checks for the blocker file - we only want to copy files over if they are new/updated
 if test -f "$BLOCKERFILE"; then
@@ -29,15 +29,15 @@ if test -f "$BLOCKERFILE"; then
 else
     echo "No Blocker File Exists, copying files from flashdrive..."
 
-    echo "Copying albums from $DRIVE_DIRECTORY ..."
+    echo "Copying albums from $DRIVE_ROOT ..."
     # For each subdirectory in the flashdrive, copy all files to project directory
-    for SUBDIRECTORY in "$DRIVE_DIRECTORY"/*; do
+    for SUBDIRECTORY in "$DRIVE_ROOT"/*; do
         #This if checks that $SUBDIRECTORY is a directory and a file
         if [ -d "$SUBDIRECTORY" ]; then
 
             DIRECTORY_LENGTH=$(find "$SUBDIRECTORY" -type f | wc -l)
-            CURRENT_DIRECTORY_NAME=$( echo "$SUBDIRECTORY" | grep -oE "[^/]+$") #"/Volumes/Frame_Project_Pics/7_Home Owners" --> /7_Home Owners
-            echo "DIRECTORY:" $DRIVE_DIRECTORY
+            CURRENT_DIRECTORY_NAME=$( echo "$SUBDIRECTORY" | grep -oE "[^/]+$") # "/Volumes/ALBUMS/7_Home Owners" --> 7_Home Owners
+            echo "DIRECTORY:" $DRIVE_ROOT
             echo "CURRENT_DIRECTORY_NAME:" $CURRENT_DIRECTORY_NAME
             echo "SUBDIRECTORY:" $SUBDIRECTORY
             echo "DIRECTORY LENGTH: $DIRECTORY_LENGTH"
@@ -53,5 +53,5 @@ else
         fi
     done
 
-    # touch "$DRIVE_DIRECTORY/$BLOCKERFILE_NAME.txt"
+    touch "$DRIVE_ROOT/$BLOCKERFILE_NAME.txt"
 fi
