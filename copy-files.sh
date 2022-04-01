@@ -6,6 +6,7 @@
 # 3. If no, copy all files from flashdrive into static/images directory.
 # 4. Once Done, create a blank text file in the flashdrive named DELETE_ME_TO_UPDATE_IMAGES.txt
 
+echo "Copy Files runs..."
 
 DRIVE_NAME="Frame_Project_Pics"
 #-- --------------------------- --#

@@ -109,7 +109,7 @@ def albums():
     albums = []
     albumNames = os.listdir(projectRoot + '/static/images')
     for albumName in albumNames:
-        images = os.listdir(projectRoot + 'static/images/' + albumName)
+        images = os.listdir(projectRoot + '/static/images/' + albumName)
         albums.append( dict(dir=albumName, length=len(images), images=images) )
     return jsonify(albums)
 # ----- End Api Routes ----- #
