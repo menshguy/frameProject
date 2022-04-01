@@ -54,15 +54,18 @@ def print_clients():
 	print("current client", current_client)
 	print("clients:", clients)
 def button_pressed():
+	print("button_pressed")
 	global was_held
 	was_held = False
 def button_unpressed():
+	print("button_unpressed")
 	data = {}
 	global was_held
 	if not was_held:
 		send_update('next_image', current_client, data)
 	was_held = False
 def button_held():
+	print("button_held")
 	data = {}
 	global was_held
 	was_held = True
