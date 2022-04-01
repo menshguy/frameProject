@@ -1,4 +1,6 @@
-# SH SCRIPT:
+#-- --------- --#
+#-- SH SCRIPT --#
+#-- --------- --#
 # 1. Check if a file called DELETE_ME_TO_UPDATE_IMAGES.txt is in the flashdrive
 # 2. If yes, Skip this script
 # 3. If no, copy all files from flashdrive into static/images directory.
@@ -6,10 +8,14 @@
 
 
 DRIVE_NAME="Frame_Project_Pics"
-#-- LOCAL --#
+#-- --------------------------- --#
+#-- LOCAL DEVELOPMENT VARIABLES --#
+#-- --------------------------- --#
 # PROJECT_ROOT="/Users/jeffreyfenster/Documents/02_Personal/01_Projects/frame_project/local_development"
 # DRIVE_DIRECTORY="/Volumes/$DRIVE_NAME"
-#-- RPi --#
+#-- ------------- --#
+#-- RPi VARIABLES --#
+#-- ------------- --#
 PROJECT_ROOT="/home/pi/Documents/frame_project_sockets"
 DRIVE_DIRECTORY="/media/pi/$DRIVE_NAME"
 

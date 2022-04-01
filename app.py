@@ -11,14 +11,20 @@ from flask import Flask, request, jsonify, render_template
 from flask_socketio import SocketIO, emit
 from subprocess import check_output
 
-# LOCAL DEVELOPMENT IMPORTS
+#-- ------------------------------------ --#
+#-- LOCAL DEVELOPMENT IMPORTS & VARIABLES--#
+#-- ------------------------------------ --#
 # from gpiozero import Device, Button, LED
 # from gpiozero.pins.mock import MockFactory
-# PROD IMPORTS
+# Device.pin_factory = MockFactory() #Mock RPi Pins (https://gpiozero.readthedocs.io/en/stable/api_pins.html#mock-pins)
+# projectRoot = "/Users/jeffreyfenster/Documents/02_Personal/01_Projects/frame_project/local_development"
+#-- ----------------------- --#
+#-- RPI IMPORTS & Variables --#
+#-- ----------------------- --#
 from gpiozero import Button, LED
+projectRoot = "/home/pi/Documents/frame_project_sockets"
 
-# LOCAL DEVELOPMENT - Mock RPi Pins (https://gpiozero.readthedocs.io/en/stable/api_pins.html#mock-pins)
-# Device.pin_factory = MockFactory()
+
 
 # ----- Setup ----- #
 app = Flask(__name__)
@@ -41,7 +47,6 @@ print("local url: ", local_url)
 # ----- End Pi Board ----- #
 
 # ----- Methods ----- #
-# url = '{}/switch'.format(local_url)
 def send_update(event, client_id, data):
 	socketio.emit(event, data, room=client_id)
 def print_clients():
@@ -52,7 +57,6 @@ def button_pressed():
 	was_held = False
 def button_unpressed():
 	data = {}
-	# send_update('next_image', current_client, data)
 	global was_held
 	if not was_held:
 		send_update('next_image', current_client, data)
@@ -103,9 +107,9 @@ def index():
 @app.route('/albums/')
 def albums():
     albums = []
-    albumNames = os.listdir('static/images')
+    albumNames = os.listdir(projectRoot + '/static/images')
     for albumName in albumNames:
-        images = os.listdir('static/images/' + albumName)
+        images = os.listdir(projectRoot + 'static/images/' + albumName)
         albums.append( dict(dir=albumName, length=len(images), images=images) )
     return jsonify(albums)
 # ----- End Api Routes ----- #
