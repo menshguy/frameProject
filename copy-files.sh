@@ -33,6 +33,8 @@ else
     for SUBDIRECTORY in "$DRIVE_DIRECTORY"/*; do
         #This if checks that $SUBDIRECTORY is a directory and a file
         if [ -d "$SUBDIRECTORY" ]; then
+
+            echo "Copying albums..."
             DIRECTORY_LENGTH=$(find "$SUBDIRECTORY" -type f | wc -l)
             CURRENT_DIRECTORY_NAME=$( echo "$SUBDIRECTORY" | grep -oE "[^/]+$") #"/Volumes/Frame_Project_Pics/7_Home Owners" --> /7_Home Owners
             echo "DIRECTORY:" $DRIVE_DIRECTORY
