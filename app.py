@@ -1,4 +1,5 @@
 #!/home/pi/Documents/frame_project_sockets/venv/bin/python3
+print("App.py runs...")
 
 # TO DEVELOP LOCALLY YOU MUST:
 # 1. YOU ABSOLUTELY MUST REMOVE "DEVICE" FROM THE "from gpiozero import Device, Button, LED" 
@@ -25,7 +26,6 @@ from gpiozero import Button, LED
 projectRoot = "/home/pi/Documents/frame_project_sockets"
 
 
-print("App.py runs...")
 
 # ----- Setup ----- #
 app = Flask(__name__)

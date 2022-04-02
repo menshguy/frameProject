@@ -14,4 +14,4 @@ echo "app.sh runs..."
 #-- Start Flask App --#
 #-- --------------- --#
 echo "Starting Flask App..."
-/home/pi/Documents/frame_project_sockets/venv/bin/python3 /home/pi/Documents/frame_project_sockets/app.py
+/home/pi/Documents/frame_project_sockets/venv/bin/python3 /home/pi/Documents/frame_project_sockets/app.py 
