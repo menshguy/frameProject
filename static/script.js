@@ -112,6 +112,18 @@ $(document).ready(function() {
                 if (a_number > b_number) return 1;
                 return 0;
             });
+            
+            // Sort images by their prefix
+            albums.forEach(function(album) {
+                album.images.sort(function(a, b) {
+                    let a_number = Number.parseInt(a.split('_')[0].split('.')[0])
+                    let b_number = Number.parseInt(b.split('_')[0].split('.')[0])
+                    
+                    if (a_number < b_number) return -1;
+                    if (a_number > b_number) return 1;
+                    return 0;
+                });
+            });
 
             // Get the Name for Each Album 
             albums.forEach((album, i) => {
