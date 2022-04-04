@@ -99,7 +99,7 @@ $(document).ready(function() {
         
         // fetch all album names and init swiper
         $.get("/albums", function(data, status){
-            console.log("Albums Data: ",data)
+            console.log("Unsorted Albums Data: ",data)
             console.log("Status: ",status);
             albums = data
             
@@ -113,8 +113,12 @@ $(document).ready(function() {
                 return 0;
             });
             
-            // Sort images by their prefix
             albums.forEach(function(album) {
+                // Get the Name for Each Album 
+                let name = album.dir.split('_')[1]
+                albums[i].name = name
+                
+                // Sort images by their prefix
                 album.images.sort(function(a, b) {
                     let a_number = Number.parseInt(a.split('_')[0].split('.')[0])
                     let b_number = Number.parseInt(b.split('_')[0].split('.')[0])
@@ -123,13 +127,13 @@ $(document).ready(function() {
                     if (a_number > b_number) return 1;
                     return 0;
                 });
+                
+                // Log the images array for debugging
+                console.log("Sorted Images: ", album.images)
             });
-
-            // Get the Name for Each Album 
-            albums.forEach((album, i) => {
-                let name = album.dir.split('_')[1]
-                albums[i].name = name
-            })
+            
+            // Log the albums array for debugging
+            console.log('Sorted Albums', albums)
 
             initSwiper()
         });
