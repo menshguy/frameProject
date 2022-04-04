@@ -68,7 +68,8 @@ function initSwiper () {
         albums[i].swiper = swiper;
 
         // Load all of the images for each swiper
-        for (let j = 0; j < albums[i].length; j++) {
+        for (let j = 0; j < albums[i].images.length; j++) {
+            console.log("j",j)
             let src = `${ image_folder }/${ album.dir }/${ album.images[j] }`;
             let elem = `
                 <div class="swiper-slide">
@@ -113,7 +114,7 @@ $(document).ready(function() {
                 return 0;
             });
             
-            albums.forEach(function(album) {
+            albums.forEach(function(album, i) {
                 // Get the Name for Each Album 
                 let name = album.dir.split('_')[1]
                 albums[i].name = name
@@ -150,15 +151,17 @@ $(document).ready(function() {
     // ----- End Sockets ----- //
 
     function nextImage (data) {
+        console.log("nextImage")
         albums[config.currentAlbum].swiper.slideNext();
     }
     
     function nextAlbum (data) {
+        console.log("nextAlbum")
         
         // If we are loading and shes already tried to change albums, we block this action
         if (config.loading) return;
         
-        loadNextAlbum()
+        loadNextAlbum();
 
         // If shes already tried to change albums, we play both the intro and outro
         // else, we play just the intro since we are already in loading state on startup
@@ -184,7 +187,11 @@ $(document).ready(function() {
         
         // Show the current Album
         if (albums[ config.currentAlbum ].swiper) {
+            // Show Current Albumv
             $(`#swiper${config.currentAlbum}`).show()
+            // SLide to First Image - this is 1 because the 0 index is actually the last image
+            // If you want to fix, its probably the way I am loading them initSwiper()
+            albums[config.currentAlbum].swiper.slideTo(1);
         }
     }
 
