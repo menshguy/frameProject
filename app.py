@@ -15,14 +15,14 @@ from subprocess import check_output
 #-- ------------------------------------ --#
 #-- LOCAL DEVELOPMENT IMPORTS & VARIABLES--#
 #-- ------------------------------------ --#
-# from gpiozero import Device, Button, LED
+# from gpiozero import Device, Button
 # from gpiozero.pins.mock import MockFactory
 # Device.pin_factory = MockFactory() #Mock RPi Pins (https://gpiozero.readthedocs.io/en/stable/api_pins.html#mock-pins)
 # projectRoot = "/Users/jeffreyfenster/Documents/02_Personal/01_Projects/frame_project/local_development"
 #-- ----------------------- --#
 #-- RPI IMPORTS & Variables --#
 #-- ----------------------- --#
-from gpiozero import Button, LED
+from gpiozero import Button
 projectRoot = "/home/pi/Documents/frame_project_sockets"
 
 
@@ -38,7 +38,6 @@ clients = []
 # ----- Pi Board ----- #
 # See frame_schematic.pdf for board setup
 button = Button(10)
-led_light = LED(18)
 # was_held = False # https://github.com/gpiozero/gpiozero/issues/685
 pi_ip_address = '192.168.0.15' # This addres is static:  https://www.makeuseof.com/raspberry-pi-set-static-ip/ 
 host = '127.0.0.1'
@@ -90,16 +89,6 @@ def test_disconnect():
 	current_client = None
 	clients.remove(request.sid)
 	print_clients()
-
-@socketio.on("toggle_light")
-def toggle_light(status):
-	print("toogle_light event", str(status))
-	if str(status) == "on":
-		led_light.on()
-	if str(status) == "off":
-		led_light.off()
-	else:
-		print("failed toogle_light")
 # ----- End Socket listeners -----#
 
 
