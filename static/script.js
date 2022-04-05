@@ -151,12 +151,10 @@ $(document).ready(function() {
     // ----- End Sockets ----- //
 
     function nextImage (data) {
-        console.log("nextImage")
         albums[config.currentAlbum].swiper.slideNext();
     }
     
     function nextAlbum (data) {
-        console.log("nextAlbum")
         
         // If we are loading and shes already tried to change albums, we block this action
         if (config.loading) return;
@@ -213,7 +211,10 @@ $(document).ready(function() {
     function playDoorsOpen () {
         const animationDuration = 1000;
 
-         // css
+        // doorsLeft.css({top: -540});
+        // doorsRight.css({bottom: -540});
+
+        //  css
          doorsLeft.animate(
             {
                 top: "-540px"
@@ -228,14 +229,13 @@ $(document).ready(function() {
             animationDuration, 
             () => { console.log("right door open") } // plays after animation
         )
-
-        // Plr
-        // player.currentTime = 0;
-        // player.play();
     }
     
     function playDoorsClose () {
         const animationDuration = 1000;
+
+        // doorsLeft.css({top: 0});
+        // doorsRight.css({bottom: 0});
 
         // css
         doorsLeft.animate(
@@ -252,13 +252,6 @@ $(document).ready(function() {
             animationDuration, 
             () => { console.log("right door close") }
         )
-
-        // Plr
-        // player.currentTime = 2;
-        // player.play();
-        // // setTimeout(function () {
-        // //     player.pause();
-        // // }, 2000);
     }
 
     function hideLoadingAnimation () {

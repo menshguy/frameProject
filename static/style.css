@@ -75,6 +75,7 @@
 }
 
 #doors_frame {
+    will-change: left, top; /* https://developer.mozilla.org/en-US/docs/Web/CSS/will-change */
     position: absolute;
     top: 0px;
     left: 0px;
@@ -82,6 +83,7 @@
 }
 
 #doors_left {
+    will-change: left, top; /* https://developer.mozilla.org/en-US/docs/Web/CSS/will-change */
     position: absolute;
     top: 0px;
     left: 0px;
@@ -89,6 +91,7 @@
 }
 
 #doors_right {
+    will-change: left, bottom; /* https://developer.mozilla.org/en-US/docs/Web/CSS/will-change */
     position: absolute;
     bottom: 0px;
     left: 0px;

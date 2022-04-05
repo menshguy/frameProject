@@ -1,4 +1,4 @@
-echo "app.sh runs..."
+echo "start-app.sh runs..."
 
 #-- ----------------------------- --#
 #-- Pull lastest code from Github --#
