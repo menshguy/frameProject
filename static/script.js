@@ -69,7 +69,6 @@ function initSwiper () {
 
         // Load all of the images for each swiper
         for (let j = 0; j < albums[i].images.length; j++) {
-            console.log("j",j)
             let src = `${ image_folder }/${ album.dir }/${ album.images[j] }`;
             let elem = `
                 <div class="swiper-slide">
@@ -211,9 +210,6 @@ $(document).ready(function() {
     function playDoorsOpen () {
         const animationDuration = 1000;
 
-        // doorsLeft.css({top: -540});
-        // doorsRight.css({bottom: -540});
-
         //  css
          doorsLeft.animate(
             {
@@ -233,9 +229,6 @@ $(document).ready(function() {
     
     function playDoorsClose () {
         const animationDuration = 1000;
-
-        // doorsLeft.css({top: 0});
-        // doorsRight.css({bottom: 0});
 
         // css
         doorsLeft.animate(
