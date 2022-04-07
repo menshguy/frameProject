@@ -68,6 +68,7 @@ function initSwiper () {
         albums[i].swiper = swiper;
 
         // Load all of the images for each swiper
+        // @TODO - Load Iphone Images: https://itnext.io/tackling-iphone-or-ipad-images-support-in-browser-8e3e64e9aaa1
         for (let j = 0; j < albums[i].images.length; j++) {
             let src = `${ image_folder }/${ album.dir }/${ album.images[j] }`;
             let elem = `
@@ -80,7 +81,7 @@ function initSwiper () {
 
         // Hide the swiper until it is needed
         $(`#swiper${ i }`).hide();
-        albums[i].swiper.update()
+        albums[i].swiper.update();
     })
 }
 
@@ -88,6 +89,7 @@ $(document).ready(function() {
 
     // Elements
     const loadingContainer = $("#loading_container");
+    const splashContainer = $("#splash_container");
     const doorsLeft = $("#doors_left");
     const doorsRight = $("#doors_right");
 
@@ -135,7 +137,8 @@ $(document).ready(function() {
             // Log the albums array for debugging
             console.log('Sorted Albums', albums)
 
-            initSwiper()
+            initSwiper();
+            splashContainer.hide(); // Hide the splash screen
         });
         
     });
