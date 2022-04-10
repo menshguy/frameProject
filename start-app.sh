@@ -1,4 +1,6 @@
-echo "start-app.sh runs..."
+echo "*** ******************** ***"
+echo "*** start-app.sh runs... ***"
+echo "*** ******************** ***"
 
 #-- ----------------------------- --#
 #-- Pull lastest code from Github --#
@@ -14,4 +16,5 @@ echo "start-app.sh runs..."
 #-- Start Flask App --#
 #-- --------------- --#
 echo "Starting Flask App..."
-/home/pi/Documents/frame_project_sockets/venv/bin/python3 /home/pi/Documents/frame_project_sockets/app.py 
+# trailing '&' ensures this runs in the background and allows ExecStartPost= to run... 
+/home/pi/Documents/frame_project_sockets/venv/bin/python3 /home/pi/Documents/frame_project_sockets/app.py &
