@@ -236,20 +236,21 @@ $(document).ready(function() {
         setTimeout(function () {
             config.loading = false;
             playDoorsOpen();
-            hideLoadingAnimation();
+            // hideLoadingAnimation();
+            transitionAnim_background.stop()
         }, transitionAnimationConfig.introDuration)
     }
 
     function playOutro () {
         config.loading = true;
-        showLoadingAnimation();
+        // showLoadingAnimation();
         playDoorsClose();
         transitionAnim_background.playSegments([0, 60], true);
         playOutroSubwayPlatform();
         setTimeout(function () {
             transitionAnim_light.play()
             config.loading = false;
-        }, transitionAnimationConfig.outroDuration)
+        }, 1000)
     }
 
     function playOutroSubwayPlatform () {
