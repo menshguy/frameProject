@@ -99,7 +99,6 @@ function initLottie () {
         name: 'transition_lights'
     });
     
-    let arr = [0, 30, 60, 90, 120]
     transitionAnim_background = lottie.loadAnimation({
         container: document.getElementById('transition_background'), // the dom element that will contain the animation
         renderer: 'svg',
@@ -110,8 +109,6 @@ function initLottie () {
         initialSegment: [0, 60], // Make sure we pause the background animation in the middle to start
     });
     
-    // transitionAnim_background.goToAndPlay(60, true);
-    // transitionAnim_background.pause();
     transitionAnim_background.playSegments([0, 60], true)
 
 }
