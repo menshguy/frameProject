@@ -1,3 +1,7 @@
+let albums;
+let transitionAnim_light;
+let transitionAnim_background;
+
 let config = {
     shesHeldButtonOnce: false,
     loading: false,
@@ -7,7 +11,7 @@ let config = {
 
 let transitionAnimationConfig = {
     outroDuration: 2000,
-    introDuration: 1000,
+    introDuration: 2000,
 }
 
 const swiperConfig = {
@@ -34,7 +38,6 @@ const swiperConfig = {
     },
 }
 
-let albums;
 
 https://swiperjs.com/swiper-api#methods-and-properties
 function initSwiper () {
@@ -85,6 +88,34 @@ function initSwiper () {
     })
 }
 
+function initLottie () {
+
+    transitionAnim_light = lottie.loadAnimation({
+        container: document.getElementById('transition_lights'), // the dom element that will contain the animation
+        renderer: 'svg',
+        loop: true,
+        autoplay: true,
+        path: 'static/transition_lights.json', // the path to the animation json
+        name: 'transition_lights'
+    });
+    
+    let arr = [0, 30, 60, 90, 120]
+    transitionAnim_background = lottie.loadAnimation({
+        container: document.getElementById('transition_background'), // the dom element that will contain the animation
+        renderer: 'svg',
+        loop: false,
+        autoplay: false,
+        path: 'static/transition_background.json', // the path to the animation json
+        name: 'transition_background',
+        initialSegment: [0, 60], // Make sure we pause the background animation in the middle to start
+    });
+    
+    // transitionAnim_background.goToAndPlay(60, true);
+    // transitionAnim_background.pause();
+    transitionAnim_background.playSegments([0, 60], true)
+
+}
+
 $(document).ready(function() {
 
     // Elements
@@ -92,6 +123,8 @@ $(document).ready(function() {
     const splashContainer = $("#splash_container");
     const doorsLeft = $("#doors_left");
     const doorsRight = $("#doors_right");
+    const subwayPlatformContainer = $("#subway_platform_container");
+    
 
     // ----- Sockets ----- //
     var socket = io(); // Init Scokets- SocketIO connection to the server
@@ -138,6 +171,7 @@ $(document).ready(function() {
             console.log('Sorted Albums', albums)
 
             initSwiper();
+            initLottie();
             splashContainer.hide(); // Hide the splash screen
         });
         
@@ -160,18 +194,18 @@ $(document).ready(function() {
         
         // If we are loading and shes already tried to change albums, we block this action
         if (config.loading) return;
-        
-        loadNextAlbum();
 
         // If shes already tried to change albums, we play both the intro and outro
         // else, we play just the intro since we are already in loading state on startup
         if (config.shesHeldButtonOnce){
             playOutro();
             setTimeout(() => {
+                loadNextAlbum();
                 playIntro();
             } , transitionAnimationConfig.outroDuration);
         } else {
             config.shesHeldButtonOnce = true;
+            loadNextAlbum();
             playIntro();
         }
     }
@@ -196,18 +230,48 @@ $(document).ready(function() {
     }
 
     function playIntro () {
+        playIntroSubwayPlatform();
+        transitionAnim_light.stop()
+        transitionAnim_background.playSegments([60, 120], true);
         setTimeout(function () {
             config.loading = false;
-            // player.pause();
+            playDoorsOpen();
             hideLoadingAnimation();
         }, transitionAnimationConfig.introDuration)
-        playDoorsOpen();
     }
 
     function playOutro () {
         config.loading = true;
-        playDoorsClose();
         showLoadingAnimation();
+        playDoorsClose();
+        transitionAnim_background.playSegments([0, 60], true);
+        playOutroSubwayPlatform();
+        setTimeout(function () {
+            transitionAnim_light.play()
+            config.loading = false;
+        }, transitionAnimationConfig.outroDuration)
+    }
+
+    function playOutroSubwayPlatform () {
+        const animationDuration = transitionAnimationConfig.outroDuration;
+        subwayPlatformContainer.animate(
+            {
+                top: "250px"
+            },
+            animationDuration,
+            () => { console.log("outroSubway") } // plays after animation
+        )
+    }
+    
+    function playIntroSubwayPlatform () {
+        const animationDuration = transitionAnimationConfig.introDuration;
+        subwayPlatformContainer.animate(
+            {
+                top: "0px"
+            },
+            animationDuration,
+            () => { console.log("introSubway") } // plays after animation
+        )
     }
 
     function playDoorsOpen () {

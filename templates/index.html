@@ -8,25 +8,28 @@
             href="https://unpkg.com/swiper@8/swiper-bundle.min.css"
         />
         <link rel="stylesheet" href="static/style.css">
+        <script src="static/lottie.min.js"></script>
         <script src="static/swiper-bundle.min.js"></script>
         <script src="static/socket.io.min.js"></script>
         <script src="static/jquery.min.js"></script>
     </head>
     <body>
 
-    <!-- Slideshow -->
-    <div id="swipers_container">
-        <!-- Swipers are added here -->
-    </div>
-
+        
     <!-- Subway Platform-->
     <div id="subway_platform_container">
+        <!-- Slideshow -->
+        <div id="swipers_container">
+            <!-- Swipers are added here -->
+        </div>
         <img class="subway_platform" src="static/platform_test.png" />
     </div>
 
     <!-- Loading Animation -->
     <div id="loading_container" class="loading_container">
-        <img src="static/puff.svg" width="500" alt="">
+        <!-- <img src="static/puff.svg" width="500" alt=""> -->
+        <div id="transition_background"> </div>
+        <div id="transition_lights"> </div>
     </div>
 
 	<!-- Subway Doors -->
