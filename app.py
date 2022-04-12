@@ -104,7 +104,7 @@ def albums():
     for albumName in albumNames:
         images = os.listdir(projectRoot + '/static/images/' + albumName)
         albums.append( dict(dir=albumName, length=len(images), images=images) )
-    return jsonify(albums)
+    return jsonify([i for i in albums if not (i['dir'] == 'x_trash')])
 # ----- End Api Routes ----- #
 
 # ----- Run App ----- #
