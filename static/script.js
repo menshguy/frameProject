@@ -249,7 +249,6 @@ $(document).ready(function() {
         playOutroSubwayPlatform();
         setTimeout(function () {
             transitionAnim_light.play()
-            config.loading = false;
         }, 1000)
     }
 
