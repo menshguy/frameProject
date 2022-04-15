@@ -114,8 +114,6 @@ function initLottie () {
         initialSegment: [60, 60], // Make sure we pause the background animation in the middle to start
     });
     
-    // transitionAnim_background.goToAndPlay(60, true);
-    // transitionAnim_background.pause();
     transitionAnim_background.playSegments([59, 60], true)
 
 }
