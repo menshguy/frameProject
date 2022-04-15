@@ -253,7 +253,7 @@ $(document).ready(function() {
         const animationDuration = transitionAnimationConfig.outroDuration;
         subwayPlatformContainer.animate(
             {
-                top: "250px"
+                top: "450px"
             },
             animationDuration,
             () => { console.log("outroSubway") } // plays after animation

@@ -6,11 +6,11 @@
     right: 70px;
 } */
 .swiper{
-    height: 493px;
+    height: 460px;
     width: 635px;
     position: absolute;
-    bottom: 72px;
-    right: 62px;
+    bottom: 54px;
+    right: 52px;
 }
 
 .swiper-slide {
@@ -59,12 +59,12 @@
 
 .subway_platform {
     position: absolute;
-    top: -316px;
-    left: -39px;
+    top: -279px;
+    left: 0px;
     transform:  rotate(90deg);
     overflow: hidden;
     z-index: 10;
-    width: 100%;
+    width: 97%;
 }
 
 #subway_platform_container {
@@ -99,6 +99,7 @@
 }
 .doors_container img{
     height: 100%;
+    width: 100%;
 }
 
 #doors_frame {
