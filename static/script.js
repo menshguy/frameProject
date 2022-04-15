@@ -2,6 +2,11 @@ let albums;
 let transitionAnim_light;
 let transitionAnim_background;
 
+const dateOfProject = new Date(2022, 02, 14); //V-day 2022, 3 year anniversary
+const dateOfAnniversary = new Date(2019, 02, 12); //V-day 2022, 3 year anniversary
+const today = new Date(); //V-day 2022, 3 year anniversary
+const yearsDating = today.getFullYear() - dateOfAnniversary.getFullYear();
+
 let config = {
     shesHeldButtonOnce: false,
     loading: false,
@@ -11,7 +16,7 @@ let config = {
 
 let transitionAnimationConfig = {
     outroDuration: 2000,
-    introDuration: 2000,
+    introDuration: 4000,
 }
 
 const swiperConfig = {
@@ -99,7 +104,6 @@ function initLottie () {
         name: 'transition_lights'
     });
     
-    let arr = [0, 30, 60, 90, 120]
     transitionAnim_background = lottie.loadAnimation({
         container: document.getElementById('transition_background'), // the dom element that will contain the animation
         renderer: 'svg',
@@ -107,16 +111,19 @@ function initLottie () {
         autoplay: false,
         path: 'static/transition_background.json', // the path to the animation json
         name: 'transition_background',
-        initialSegment: [0, 60], // Make sure we pause the background animation in the middle to start
+        initialSegment: [60, 60], // Make sure we pause the background animation in the middle to start
     });
     
     // transitionAnim_background.goToAndPlay(60, true);
     // transitionAnim_background.pause();
-    transitionAnim_background.playSegments([0, 60], true)
+    transitionAnim_background.playSegments([59, 60], true)
 
 }
 
 $(document).ready(function() {
+
+    // Init splash screen text immediately
+    $("#splash_text").text = "Loading " + yearsDating + " years of Memories...";
 
     // Elements
     const loadingContainer = $("#loading_container");
@@ -195,6 +202,7 @@ $(document).ready(function() {
         // If we are loading and shes already tried to change albums, we block this action
         if (config.loading) return;
 
+
         // If shes already tried to change albums, we play both the intro and outro
         // else, we play just the intro since we are already in loading state on startup
         if (config.shesHeldButtonOnce){
@@ -213,6 +221,10 @@ $(document).ready(function() {
     function loadNextAlbum () {
         let previousAlbum = config.currentAlbum;
         config.currentAlbum = getNextAlbumIndex();
+
+        // Update Street Sign
+        console.log("HI", config.currentAlbum, albums[config.currentAlbum].name)
+        $(`#subway_stop`).text(albums[config.currentAlbum].name)
     
         // Hide Previous album (if we are not on the first album)
         if (albums[previousAlbum]?.swiper) {
@@ -256,7 +268,7 @@ $(document).ready(function() {
         const animationDuration = transitionAnimationConfig.outroDuration;
         subwayPlatformContainer.animate(
             {
-                top: "250px"
+                top: "900px"
             },
             animationDuration,
             () => { console.log("outroSubway") } // plays after animation
