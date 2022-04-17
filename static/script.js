@@ -221,7 +221,7 @@ $(document).ready(function() {
         config.currentAlbum = getNextAlbumIndex();
 
         // Update Street Sign
-        console.log("HI", config.currentAlbum, albums[config.currentAlbum].name)
+        console.log("Album:", config.currentAlbum, albums[config.currentAlbum].name)
         $(`#subway_stop`).text(albums[config.currentAlbum].name)
     
         // Hide Previous album (if we are not on the first album)

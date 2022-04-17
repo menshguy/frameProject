@@ -5,14 +5,25 @@
     bottom: 40px;
     right: 70px;
 } */
-.swiper{
-    height: 460px;
-    width: 635px;
+
+.swipers_container {
     position: absolute;
+    top: 0px;
+    right: 47px;
+    /* height: 472px; */
+    /* width: 636px; */
+    width: 530px;
+    height: 426px;
+}
+.swiper{
+    /* width: 100%;
+    max-height: 100%; */
+    /* position: absolute;
     bottom: 72px;
-    right: 62px;
+    right: 62px; */
     background: black;
     z-index: 10;
+    height: 100%;
 }
 
 .swiper-slide {
@@ -52,7 +63,7 @@
     left: 0;
     width: 100%;
     height: 100%;
-    background-color: red;
+    background-color: rgb(255, 93, 93);
     z-index: 9999;
     display: flex;
     justify-content: center;
@@ -60,16 +71,16 @@
 }
 .splash_text{
     position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    right: 0;
     font-size: 30px;
     color: white;
     transform: rotate(90deg);
+    font-family: cursive;
+}
+.splash_gif{
+    transform: rotate(90deg);
+    width: 70px;
+    margin-right: -387px;
 }
 
 .subway_platform {
@@ -91,23 +102,32 @@
     width: 100%;
 }
 
-.subway_frame {
-    height: 723px;
-    width: 570px;
+.subway_frame_container {
     position: absolute;
-    bottom: -24px;
-    right: 117px;
+    bottom: 4px;
+    right: 1px;
+    height: 471px;
+    width: 633px;
+}
+.subway_frame {
+    height: 600px;
+    width: 500px;
+    position: absolute;
+    bottom: -23px;
+    right: 82px;
     z-index: 100;
     transform: rotate(90deg);
 }
 
 .subway_sign {
     position: absolute;
-    top: -576px;
-    left: 545px;
-    transform:  rotate(180deg);
+    top: -604px;
+    /* top: 56px; */
+    left: 339px;
+    transform: rotate(180deg);
     overflow: hidden;
     z-index: 10;
+    width: 600px;
 }
 .subway_sign img {
     width: 100%;
@@ -125,10 +145,10 @@
     position: absolute;
     transform: rotate(-90deg);
     color: white;
-    top: 150px;
-    left: 124px;
-    height: 391px;
-    width: 416px;
+    top: 133px;
+    left: 110px;
+    height: 353px;
+    width: 374px;
     padding: 15px;
     box-sizing: border-box;
 }

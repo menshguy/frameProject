@@ -5,7 +5,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link
             rel="stylesheet"
-            href="https://unpkg.com/swiper@8/swiper-bundle.min.css"
+            href="static/swiper-bundle.min.css"
         />
         <link rel="stylesheet" href="static/style.css">
         <script src="static/lottie.min.js"></script>
@@ -21,8 +21,8 @@
         <!-- <img class="subway_platform" src="static/platform_test.png" /> -->
         <img class="subway_platform_extra" src="static/platform_large.png" />
         <img class="subway_platform" src="static/platform_large.png" />
-        <div class="subway_sign" />
-        <img src="static/platform_sign.png" />
+        <div class="subway_sign">
+            <img src="static/platform_sign.png" />
             <div class="subway_sign_text_container" >
                 <div class="subway_sign_top">
                     <p id="subway_stop" class="subway_sign_typeface">
@@ -54,12 +54,14 @@
             </div>
         </div>
         
-        <!-- Slideshow -->
-        <div id="swipers_container">
-            <!-- Swipers are added here -->
+        <div class="subway_frame_container">
+            <!-- Slideshow -->
+            <div id="swipers_container" class="swipers_container">
+                <!-- Swipers are added here -->
+            </div>
+            
+            <img class="subway_frame" src="static/platform_frame.png" />
         </div>
-        
-        <img class="subway_frame" src="static/platform_frame.png" />
     </div>
 
     <!-- Loading Animation -->
@@ -99,8 +101,9 @@
 
     <div id="splash_container" class="splash_container">
         <p id="splash_text" class="splash_text">
-            Loading A Lifetime of Memories...
+            Loading 3 Years of Memories...
         </p>
+        <img class="splash_gif" src="static/heartbeat.gif" />
     </div>
     
     <!-- Script -->
