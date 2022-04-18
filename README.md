@@ -9,12 +9,13 @@ Username: pi
 Password: lizard08
 
 ## How This Project Works
-### 1. Upload Images to Flashdrive
-Flashdrive will get mounted to /mnt/flashdrive. This is so we can be sure the flashdrive is available with the service starts
-### 2. On boot, the pi will run the autostart script and frame.service will start
-Autostart file - just hides the mouse
+### 1. Upload Images to Flashdrive and plug in
+1. Make sure Flashdrive is mounted - the service will not start without it.
+2. Flashdrive will get mounted to `/mnt/flashdrive`. This is so we can be sure the flashdrive is available with the service starts
+### 2. On boot, the pi will run the `autostart` script and `frame.service` will start
+1. Autostart file - just hides the mouse
 `sudo nano ~/.config/lxsession/LXDE-pi/autostart`
-Frame service - Copies files from flashdrive, starts flask app, opens browser
+2. Frame service - Copies files from flashdrive, starts frame.service (flask app), opens the flask app in browser
 `sudo nano /lib/systemd/system/frame.service`
 
 ## How To Add Pictures to this Project
@@ -23,6 +24,8 @@ Frame service - Copies files from flashdrive, starts flask app, opens browser
 For example, a directory titled `01_Cats and Dogs` will be soreted according to the 01 prefix, and will create a new subway stop titled "Cats and Dogs"
 ### 3. Any .heic pictures will be converted to .png, optimized, and rotated 90deg
 ### 4. If you'd like to order the photos, you can number them. Otherwise they will appear in a random kind of order.
+### Supported Image Types
+`png`, `jpg`, `heic`, `.gif`
 
 
 ## Development
