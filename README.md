@@ -1,12 +1,18 @@
 # Frame Project
 
+
+
 ## Detailed Setup and RPi Notes
 https://docs.google.com/document/d/1VD0glMboO8HY1I23oZjOkPFzy_jcqtAYsdGe0Dx7LQw/edit#
+
+
 
 ## Pi Details
 IP: 192.168.0.15
 Username: pi
 Password: lizard08
+
+
 
 ## How This Project Works
 ### 1. Upload Images to Flashdrive and plug in
@@ -26,6 +32,7 @@ For example, a directory titled `01_Cats and Dogs` will be soreted according to 
 ### 4. If you'd like to order the photos, you can number them. Otherwise they will appear in a random kind of order.
 ### Supported Image Types
 `png`, `jpg`, `heic`, `.gif`
+
 
 
 ## Development
@@ -49,6 +56,7 @@ For example, a directory titled `01_Cats and Dogs` will be soreted according to 
 1. You can also connect to the pi via VNC viewer and some combination of the above 2
 
 
+
 ## Important File Locations
 ### Flask App (& this git repo)
 `~/Documents/frame_project_sockets`
@@ -60,17 +68,15 @@ For example, a directory titled `01_Cats and Dogs` will be soreted according to 
 `mnt/flashdrive`
 
 
+
 ## Helpful Pi Scripts
 ### Kill Chromium/Firefox
 `pkill -o chromium`
 `pkill -o firefox`
-
 ### To Refresh Chromum
 `xdotool search --onlyvisible --class Chrome windowfocus key ctrl+r`
-
 ### To view computer processeses/pefromance
 `htop`
-
 ### To view Service Status (and start/stop)
 To Start/Stop the service
 `sudo systemctl restart frame.service`
