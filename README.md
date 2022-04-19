@@ -1,6 +1,6 @@
 # Frame Project
 
-![Demo Gif](github_demo.gif) / ! [](github_demo.gif)
+![Demo Gif](github_demo.gif)
 
 ## Detailed Setup and RPi Notes
 https://docs.google.com/document/d/1VD0glMboO8HY1I23oZjOkPFzy_jcqtAYsdGe0Dx7LQw/edit#
