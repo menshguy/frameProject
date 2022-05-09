@@ -10,10 +10,11 @@ echo "*** ********************* ***"
 echo "*** copy-files.sh runs... ***"
 echo "*** ********************* ***"
 
-DRIVE_NAME="ALBUMS"
+
 #-- --------------------------- --#
 #-- LOCAL DEVELOPMENT VARIABLES --#
 #-- --------------------------- --#
+# DRIVE_NAME="ALBUMS"
 # PROJECT_ROOT="/Users/jeffreyfenster/Documents/02_Personal/01_Projects/frame_project/local_development"
 # DRIVE_ROOT="/Volumes/$DRIVE_NAME"
 #-- ------------- --#
@@ -47,7 +48,7 @@ if [ -d "$DRIVE_ROOT" ]; then
             #This if checks that $DRIVE_SUBDIRECTORY is a directory and not a file, otherwise it will attempt this code against the DELETE_ME file
             if [ -d "$DRIVE_SUBDIRECTORY" ]; then
                 DIRECTORY_LENGTH=$(find "$DRIVE_SUBDIRECTORY" -type f | wc -l)
-                CURRENT_DIRECTORY_NAME=$( echo "$DRIVE_SUBDIRECTORY" | grep -oE "[^/]+$") # "/Volumes/ALBUMS/7_Home Owners" --> 7_Home Owners
+                CURRENT_DIRECTORY_NAME=$( echo "$DRIVE_SUBDIRECTORY" | grep -oE "[^/]+$") # renames "/Volumes/ALBUMS/7_Home Owners" --> 7_Home Owners
                 echo "Current Directory: $CURRENT_DIRECTORY_NAME ( $DRIVE_SUBDIRECTORY,  $DIRECTORY_LENGTH )"
 
                 #Convert all iphone HEIC files to PNG so that they can be displayed in HTML

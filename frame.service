@@ -1,0 +1,35 @@
+#NOTE: Add this file to your Pi here: `sudo nano /lib/systemd/system/frame.service`
+#NOTE2: Dont forget to configure your pi to start this service on boot `sudo systemctl enable frame.service`
+
+[Unit]
+Description=Frame Project
+RequiresMountsFor=/mnt/flashdrive/
+#Requires=graphical.target
+After=multi-user.target
+
+[Service]
+#Type=oneshot
+
+#More Info on this setup, sepcicially opening the browser correctly https://raspberrypi.stackexchange.com/questions/104827/start-chromium-on-raspberry-pi-in-kiosk-mode-using-systemd-service-instead-of-th
+#Sets Environment variables. Display Variable is for Open Browser Script
+Environment=DISPLAY=:0.0
+Environment=XAUTHORITY=/home/pi/.Xauthority
+
+#Copies Files from flashdrive
+ExecStartPre=/bin/sh /home/pi/Documents/frame_project_sockets/copy-files.sh
+#Starts Flaks app
+ExecStartPre=/bin/sh /home/pi/Documents/frame_project_sockets/start-app.sh
+#Opens Browser after application has been started
+ExecStart=/bin/sh /home/pi/Documents/frame_project_sockets/open-browser.sh
+
+#Ensures the copy-files script has enough time to finish without timing out, and restarts service every 30s on failure.
+TimeoutSec=5min
+Restart=always
+RestartSec=30
+
+User=pi
+#Ensures that only ExecStart runs as User=pi, the rest will run as sudo - https://unix.stackexchange.com/questions/207469/systemd-permission-issue-with-mkdir-execstartpre
+PermissionsStartOnly=true
+
+[Install]
+WantedBy=multi-user.target

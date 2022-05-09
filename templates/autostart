@@ -1,0 +1,9 @@
+#NOTE: This file will hide the mouse cursor. Add this file to your Pi here: `sudo nano ~/.config/lxsession/LXDE-pi/autostart`
+
+@lxpanel --profile LXDE-pi
+@pcmanfm --desktop --profile LXDE-pi
+#@xscreensaver -no-splash
+point-rpi
+
+#hides mouse cursor
+@unclutter -idle 2

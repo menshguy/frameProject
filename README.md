@@ -6,11 +6,10 @@
 https://docs.google.com/document/d/1VD0glMboO8HY1I23oZjOkPFzy_jcqtAYsdGe0Dx7LQw/edit#
 
 
-
 ## Pi Details
 IP: 192.168.0.15
 Username: pi
-Password: lizard08
+Password: [reptile-lowercase][##]
 
 
 
@@ -27,29 +26,43 @@ Password: lizard08
 ## How To Add Pictures to this Project
 ### 1. Plug flashdrive into the computer.
 ### 2. Each Directory will create a new subway stop named after the dirctory and ordered according the prefix.
-For example, a directory titled `01_Cats and Dogs` will be soreted according to the 01 prefix, and will create a new subway stop titled "Cats and Dogs"
+For example, a directory titled `01_Cats and Dogs` will be ordered according to the 01 prefix, and will create a new subway stop titled "Cats and Dogs"
 ### 3. Any .heic pictures will be converted to .png, optimized, and rotated 90deg
 ### 4. If you'd like to order the photos, you can number them. Otherwise they will appear in a random kind of order.
 ### Supported Image Types
 `png`, `jpg`, `heic`, `.gif`
 
 
+## Setup
+1. Pull this repo onto your pi `/home/pi/Documents/frame_project_sockets` (If you change the location, you must update the frame.service file)
+2. Make sure the appropriate lines in app.py are uncommented - so that it can run on the pi vs local
+3. Dont forget to copy and paste the autostart and frame.service files from the repo into the proper location on the Pi with the same file names
+4. Enable the frame.service to run on boot: `sudo systemctl enable frame.service`
+5. Dont forget that the Flashdrive must be mounted in order for the application to start correctly. (It must be that specific flashdrive - or one with same name "flashdrive")
+6. If all of the above is done correctly, the service should launch on boot and open in a new browser window
+*If it does not boot, check the logs:
+```
+systemctl status frame.service //For truncated logs
+journalctl -u frame.service //For the full logs
+```
+7. For Development, see below
+
 
 ## Development
 ### Option 1: On local machine
 1. Clone this github repo: https://github.com/menshguy/frameProject.git
 2. Comment out noted lines in app.py
-3. Un-Comment out the Test buttons in templates/index.html
+3. Un-Comment out the Test buttons in templates/index.html (Pi pins wont work, have to mock them)
 4. Start Flask App Locally & Open port in browser
 `FLASK_APP=app.py flask run --host=0.0.0.0`
 5. Develop and push
 5. SSH into Pi and pull changes
 ### Option 2: On Pi
-1. Open VSCode and SSH Into the Pi (192.168.0.15)
-2. Open VSCOde terminal to interact with the Pi
-3. Run this line of code in the terminal
+1. Open VSCode on local machine and SSH Into the Pi (192.168.0.15)
+2. Open VSCode terminal to interact with the Pi
+3. To view the app that is running on the pi locally, Run this line of code in the terminal
 `ssh -L 0.0.0.0:9223:localhost:9222 localhost -N`
-4. Open the port on your local machine like so:
+    ... and open the port on your local machine like so:
 `http://192.168.0.15:9223`
 5. Now you can code while refreshing the local browser to see updates
 ### Option 3: VNC viewer
