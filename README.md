@@ -63,9 +63,9 @@ journalctl -u frame.service //For the full logs
 ### Option 2: On Pi
 1. Open VSCode on local machine and SSH Into the Pi (192.168.0.15)
 2. Open VSCode terminal to interact with the Pi
-3. To view the app that is running on the pi locally, Run this line of code in the terminal
+3. To view the app that is running on the pi locally, Run this line of code in the terminal (Note that the `--remote-debugging-port=9222` flag must be presetn in the chromium start script)
 `ssh -L 0.0.0.0:9223:localhost:9222 localhost -N`
-    ... and open the port on your local machine like so:
+... and open the port on your local machine like so:
 `http://192.168.0.15:9223`
 5. Now you can code while refreshing the local browser to see updates
 ### Option 3: VNC viewer
