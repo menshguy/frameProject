@@ -7,9 +7,9 @@ https://docs.google.com/document/d/1VD0glMboO8HY1I23oZjOkPFzy_jcqtAYsdGe0Dx7LQw/
 
 
 ## Pi Details
-IP: 192.168.0.15
-Username: pi
-Password: [reptile-lowercase][##]
+*IP: 192.168.0.15
+*Username: pi
+*Password: [reptile-lowercase][##]
 
 ## For A More basic version of this project
 1. Checkout the `basic-project` branch
@@ -22,9 +22,9 @@ Password: [reptile-lowercase][##]
 2. Flashdrive will get mounted to `/mnt/flashdrive`. This is so we can be sure the flashdrive is available with the service starts
 ### 2. On boot, the pi will run the `autostart` script and `frame.service` will start
 1. Autostart file - just hides the mouse
-`sudo nano ~/.config/lxsession/LXDE-pi/autostart`
+> `sudo nano ~/.config/lxsession/LXDE-pi/autostart`
 2. Frame service - Copies files from flashdrive, starts frame.service (flask app), opens the flask app in browser
-`sudo nano /lib/systemd/system/frame.service`
+> `sudo nano /lib/systemd/system/frame.service`
 
 ## How To Add Pictures to this Project
 ### 1. Plug flashdrive into the computer.
