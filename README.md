@@ -11,6 +11,9 @@ IP: 192.168.0.15
 Username: pi
 Password: [reptile-lowercase][##]
 
+## For A More basic version of this project
+1. Checkout the `basic-project` branch
+`git checkout basic-project`
 
 
 ## How This Project Works
