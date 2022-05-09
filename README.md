@@ -33,7 +33,7 @@ For example, a directory titled `01_Cats and Dogs` will be ordered according to 
 
 ### 4. If you'd like to order the photos, you can number them with a prefix just like with the albums. Otherwise they will appear in a random kind of order.
 ### Supported Image Types
-> `png`, `jpg`, `heic`, `.gif`
+`png`, `jpg`, `heic`, `.gif`
 > NOTE: the copy-files script will hande any .heic pictures by converting them to .png, optimizing them, and rotating 90deg
 
 
