@@ -30,10 +30,11 @@ https://docs.google.com/document/d/1VD0glMboO8HY1I23oZjOkPFzy_jcqtAYsdGe0Dx7LQw/
 ### 1. Plug flashdrive into the computer.
 ### 2. Each Directory will create a new subway stop named after the dirctory and ordered according the prefix.
 For example, a directory titled `01_Cats and Dogs` will be ordered according to the 01 prefix, and will create a new subway stop titled "Cats and Dogs"
-### 3. Any .heic pictures will be converted to .png, optimized, and rotated 90deg
-### 4. If you'd like to order the photos, you can number them. Otherwise they will appear in a random kind of order.
+
+### 4. If you'd like to order the photos, you can number them with a prefix just like with the albums. Otherwise they will appear in a random kind of order.
 ### Supported Image Types
-`png`, `jpg`, `heic`, `.gif`
+> `png`, `jpg`, `heic`, `.gif`
+> NOTE: the copy-files script will hande any .heic pictures by converting them to .png, optimizing them, and rotating 90deg
 
 
 ## Setup
