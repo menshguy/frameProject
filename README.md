@@ -95,7 +95,7 @@ journalctl -u frame.service //For the full logs
 `pkill -o firefox`
 ### To Refresh Chromum
 `xdotool search --onlyvisible --class Chrome windowfocus key ctrl+r`
-### To view computer processeses/pefromance
+### To view computer processes/performance
 `htop`
 ### To view Service Status (and start/stop)
 To Start/Stop the service
