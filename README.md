@@ -1,6 +1,7 @@
 # Frame Project
 
 ![Demo Gif](github_demo.gif)
+(2x speed)
 
 ## Detailed Setup and RPi Notes
 https://docs.google.com/document/d/1VD0glMboO8HY1I23oZjOkPFzy_jcqtAYsdGe0Dx7LQw/edit#
@@ -33,7 +34,7 @@ For example, a directory titled `01_Cats and Dogs` will be ordered according to 
 
 ### 4. If you'd like to order the photos, you can number them with a prefix just like with the albums. Otherwise they will appear in a random kind of order.
 ### Supported Image Types
-> `png`, `jpg`, `heic`, `.gif`
+`png`, `jpg`, `heic`, `.gif`
 > NOTE: the copy-files script will hande any .heic pictures by converting them to .png, optimizing them, and rotating 90deg
 
 
