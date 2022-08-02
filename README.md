@@ -63,16 +63,21 @@ journalctl -u frame.service //For the full logs
 ### Setup the Pi configuration/settings
 1. Install Chrome: `sudo apt-get install chromium-browser`
 2. Flip Chrome Flags for hardware Accelleration
-3. Setup the Flashdrive mount. Create the Flash Drive directory
+3. chrome://flags
+```
+GPU rasterization: Disabled
+Accelerated 2D canvas: Disabled
+Override software rendering list: Disabled
+Hardware-accelerated video decode: Enabled
+```
+4. Setup the Flashdrive mount. Create the Flash Drive directory
 `sudo mkdir /mnt/flashdrive`
-4. Open this file:
+5. Open this file:
 `sudo nano /etc/fstab`
-5. Add this line:
-`UUID=A11A-1A1D /mnt/flashdrive vfat defaults,nofail,x-systemd.device-timeout=1 0 2`
-<img width="652" alt="image" src="https://user-images.githubusercontent.com/6055029/182486448-c71a69cb-f6f1-4b84-8940-1d0a7e42a0ca.png">
-6. Disable Screen Blanking:
-https://www.radishlogic.com/raspberry-pi/how-to-disable-screen-sleep-in-raspberry-pi/#:~:text=Steps%20to%20disable%20Screen%20Blanking,Screen%20Blanking%20row%2C%20click%20Disable%20. 
+5. Add this line: `UUID=A11A-1A1D /mnt/flashdrive vfat defaults,nofail,x-systemd.device-timeout=1 0 2` <img width="652" alt="image" src="https://user-images.githubusercontent.com/6055029/182486448-c71a69cb-f6f1-4b84-8940-1d0a7e42a0ca.png">
+6. Disable Screen Blanking: https://www.radishlogic.com/raspberry-pi/how-to-disable-screen-sleep-in-raspberry-pi/#:~:text=Steps%20to%20disable%20Screen%20Blanking,Screen%20Blanking%20row%2C%20click%20Disable%20
 7. Setup hardware accelleration. In Raspi-config (`sudo raspi-config`) Navigate to Advanced Options. Turn on `OpenGL with fake KMS switch`
+8. Try upping the RAM in `sudo raspi-config` > Performance Options > GPU Memory (try 128)
 
 
 
