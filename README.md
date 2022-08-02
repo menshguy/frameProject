@@ -42,6 +42,11 @@ For example, a directory titled `01_Cats and Dogs` will be ordered according to 
 1. Pull this repo onto your pi `/home/pi/Documents` (If you change the location, you must update the frame.service file)
 2. Make sure the appropriate lines in app.py are uncommented - so that it can run on the pi vs local
 3. Copy and paste the `autostart` and `frame.service` files from the repo into the proper location on the Pi (name files as they are in the repo)
+  Service file
+    sudo nano /lib/systemd/system/frame.service
+  Autostart file
+    sudo nano ~/.config/lxsession/LXDE-pi/autostart
+
 4. Enable the frame.service to run on boot: `sudo systemctl enable frame.service`
 5. Create a venv `python3 -m venv env`
 6. Activate the venv: `source env/bin/activate`
