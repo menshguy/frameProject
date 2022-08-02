@@ -39,7 +39,7 @@ For example, a directory titled `01_Cats and Dogs` will be ordered according to 
 
 
 ## Setup
-1. Pull this repo onto your pi `/home/pi/Documents` (If you change the location, you must update the frame.service file)
+1. Pull this repo onto your pi `/home/pi/Documents` (The full file path must be `~/Documents/frame_project_sockets`. If you change the location, you must update the frame.service file)
 2. Make sure the appropriate lines in app.py are uncommented - so that it can run on the pi vs local
 3. Copy and paste the `autostart` and `frame.service` files from the repo into the proper location on the Pi (name files as they are in the repo).
 Service file: `/lib/systemd/system/frame.service`
