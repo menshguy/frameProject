@@ -38,16 +38,19 @@ For example, a directory titled `01_Cats and Dogs` will be ordered according to 
 > NOTE: the copy-files script will hande any .heic pictures by converting them to .png, optimizing them, and rotating 90deg
 
 
+
 ## Setup
+### Setup the Pi Service and Autostart files
 1. Pull this repo onto your pi `/home/pi/Documents` (The full file path must be `~/Documents/frame_project_sockets`. If you change the location, you must update the frame.service file)
 2. Make sure the appropriate lines in app.py are uncommented - so that it can run on the pi vs local
 3. Copy and paste the `autostart` and `frame.service` files from the repo into the proper location on the Pi (name files as they are in the repo).
 Service file: `/lib/systemd/system/frame.service`
 Autostart file: `~/.config/lxsession/LXDE-pi/autostart`
-
+4. Make sure the DELETE file is deleted on the flashdrive :)
+### Setup the Flask App
 4. Enable the frame.service to run on boot: `sudo systemctl enable frame.service`
-5. Create a venv `python3 -m venv env`
-6. Activate the venv: `source env/bin/activate`
+5. From the frame_project_sockets directory, create a venv `python3 -m venv env`
+6. Activate the venv: `source venv/bin/activate`
 7. pip install `python3 -m pip install -r requirements.txt` - venv must be activated in order to install packages correctly
 8. Flashdrive must be mounted in order for the application to start correctly. (It must be that specific flashdrive - or one with same name "flashdrive")
 9. If all of the above is done correctly, the service should launch on boot and open in a new browser window
@@ -57,6 +60,25 @@ systemctl status frame.service //For truncated logs
 journalctl -u frame.service //For the full logs
 ```
 10. For Development, see Development section below
+### Setup the Pi configuration/settings
+Install Chrome
+Flip Chrome Flags for hardware Accelleration
+Setup the Flashdrive mount
+Create the Flash Drive directory
+`sudo mkdir /mnt/flashdrive`
+Open this file:
+`sudo nano /etc/fstab`
+Add this line:
+`UUID=A11A-1A1D /mnt/flashdrive vfat defaults,nofail,x-systemd.device-timeout=1 0 2`
+<img width="652" alt="image" src="https://user-images.githubusercontent.com/6055029/182486448-c71a69cb-f6f1-4b84-8940-1d0a7e42a0ca.png">
+Disable Screen Blanking:
+https://www.radishlogic.com/raspberry-pi/how-to-disable-screen-sleep-in-raspberry-pi/#:~:text=Steps%20to%20disable%20Screen%20Blanking,Screen%20Blanking%20row%2C%20click%20Disable%20. 
+
+
+
+
+
+
 
 
 ## Development
@@ -106,9 +128,6 @@ To Start/Stop the service
 `sudo systemctl restart frame.service`
 `sudo systemctl stop frame.service`
 `sudo systemctl start frame.service`
-To restart the daemon (MUST do after editing the service files)
-`sudo systemctl daemon-reload`
-To View status and truncated logs
-`systemctl status frame.service`
-To View Full Logs
-`journalctl -u frame.service`
+To restart the daemon:              `sudo systemctl daemon-reload` (MUST do after editing the service files)
+To View status and truncated logs:  `systemctl status frame.service`
+To View Full Logs:                  `journalctl -u frame.service`
